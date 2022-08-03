@@ -1,0 +1,64 @@
+<header>
+    <div class="header-container">
+        <div class="header-menu">
+            <button class="header-menu__btn" id="menuBtn"><i class="material-symbols-outlined">menu</i></button>
+            <button class="header-menu__btn" id="userBtn"><i class="material-symbols-outlined">account_circle</i></button>
+            <button class="header-menu__btn" id="searchBtn"><i class="material-symbols-outlined">search</i></button>
+        </div>
+        <div class="header-logo">
+            <a href="/">
+                <img src="/img/assets/logo/logo_zen_hogar-black.svg" alt="">
+            </a>
+        </div>
+    </div>
+    <div class="header-slide-menu" id="menuSlider">
+        <h2 class="slide-menu__title">Menu</h2>
+        <div class="header-slide-menu__container">
+            <ul class="slide-header-menu">
+                <li class="slide-header-menu__item"><button class="slide-header-menu__link"><i
+                            class="material-symbols-outlined">chair</i>Muebles</button></li>
+                <li class="slide-header-menu__item"><button class="slide-header-menu__link"><i
+                            class="material-symbols-outlined">light_group</i> Iluminación</button></li>
+                <li class="slide-header-menu__item"><button class="slide-header-menu__link"><i
+                            class="material-symbols-outlined">yard</i> Accesorios</button></li>
+                            <li class="slide-header-menu__item"><a href="/products" class="slide-header-menu__link"><i
+                                class="material-symbols-outlined">scene</i> Todos los productos</a></li>
+                <li class="slide-header-menu__item"><button class="slide-header-menu__link"><i
+                            class="material-symbols-outlined">shopping_bag</i> Carrito</button></li>
+                <li class="slide-header-menu__item"><button class="slide-header-menu__link"><i
+                            class="material-symbols-outlined">help</i> Ayuda</button></li>
+            </ul>
+        </div>
+        <p class="header-copyright">&copy; Todos los derechos reservados.</p>
+    </div>
+    <% if (locals.isLogged) { %>
+        <div class="header-slide-menu account-slide account__container" id="accountSlider">
+        </div>
+    <% } else { %>
+        <div class="header-slide-menu account-slide account__container" id="accountSlider">
+            <div class="header-slide-menu__container">
+                <h2 class="slide-menu__title">Mi cuenta</h2>
+                <p class="slide-menu__text">Debes iniciar sesion para continuar a tu perfil</p>
+                <a href="/users/login" class="slide-header-menu__link"><i class="material-symbols-outlined">login</i>
+                    Iniciar sesión</a>
+            </div>
+            <div class="header-slide-menu__container">
+                <h2 class="slide-menu__title">Registrarse</h2>
+                <p class="slide-menu__text">¿Aún no tienes cuenta? ¿Qué estas esperando?</p>
+                <a href="/users/register" class="slide-header-menu__link"><i class="material-symbols-outlined">login</i>
+                    Registrarse</a>
+            </div>
+            <div class="header-slide-menu__container">
+                <h2 class="slide-menu__title">Necesitas ayuda?</h2>
+                <button class="slide-header-menu__link"><i class="material-symbols-outlined">help</i> Ayuda</button>
+            </div>
+        </div>
+    <% } %>
+    <div class="header-search-bar" id="searchBox">
+        <form action="#" class="header-search-bar__form">
+            <input type="search" class="header-search-bar__input" placeholder="Busquemos algo...">
+            <button type="submit" class="header-search-bar__btn"><i
+                    class="material-symbols-outlined">search</i></button>
+        </form>
+    </div>
+</header>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../partials/head.ejs', {title:'Proyecto Integrador - Crear Producto'}) %>
+<body>
+    <%- include('../partials/header.ejs') %>
+    <main class="create-product form-section">
+        <!-- Contenedor del formulario (Registers,logins,create-product,etc) -->
+        <section class="form-container">
+            <div class="form-container__header">
+                <h1 class="form-title">Crear Producto</h1>
+                <div class="form-logo">
+                    <a href="/">
+                        <img src="/img/assets/logo/logo_zen_hogar-black.svg" alt="site logo" class="form-logo__img">
+                    </a>
+                </div>
+            </div>
+            <!-- Formulario -->
+            <form action="/admin/products/create" enctype="multipart/form-data" method="POST" id="createProduct">
+
+                <!-- Input de Img. Perfil -->
+                <div class="form-layer">
+                    <div class="form-product-pic">
+                        <img src="/img/assets/products/default.jpg" alt="Default photo" id="productImg">
+                        <label for="imgInput" class="layer-label upload-pic__btn"><i
+                                class="material-symbols-outlined">add_a_photo</i></label>
+                    </div>
+                    <div class="layer-input__container">
+                        <input type="file" class="layer-input__file cp" id="imgInput" name="productImg">
+                    </div>
+                    <div class="layer-error__container">
+                        <p class="layer-error"></p>
+                    </div>
+                </div>
+
+
+                <!-- Inputs del formulario -->
+                <div class="form-layer form-layer--half">
+                    <label for="name" class="layer-label">Nombre del producto</label>
+                    <div class="layer-input__container">
+                        <input type="text" class="layer-input cp" name="name" id="productName">
+                        <i class="material-symbols-outlined layer-input__icon">edit</i>
+                    </div>
+                    <div class="layer-error__container">
+                        <p class="layer-error"></p>
+                    </div>
+                </div>
+
+                <!-- Inputs del formulario -->
+                <div class="form-layer form-layer--half">
+                    <label for="price" class="layer-label">Precio</label>
+                    <div class="layer-input__container">
+                        <input type="text" class="layer-input cp" name="price" id="productPrice">
+                        <i class="material-symbols-outlined layer-input__icon">sell</i>
+                    </div>
+                    <div class="layer-error__container">
+                        <p class="layer-error"></p>
+                    </div>
+                </div>
+
+                <!-- Inputs del formulario -->
+                <div class="form-layer form-layer--half">
+                    <label for="email" class="layer-label">Descuento</label>
+                    <div class="layer-input__container">
+                        <input type="number" class="layer-input cp" name="discountValue" id="productDiscount" value="0">
+                        <i class="material-symbols-outlined layer-input__icon">percent</i>
+                    </div>
+                    <div class="layer-error__container">
+                        <p class="layer-error"></p>
+                    </div>
+                </div>
+
+                <div class="form-layer form-layer--half">
+                    <label for="email" class="layer-label">Stock</label>
+                    <div class="layer-input__container">
+                        <input type="number" class="layer-input cp" name="stock" value="0" id="productStock">
+                        <i class="material-symbols-outlined layer-input__icon">inventory_2</i>
+                    </div>
+                    <div class="layer-error__container">
+                        <p class="layer-error"></p>
+                    </div>
+                </div>
+
+                <!-- Inputs del formulario -->
+                <div class="form-layer">
+                    <label for="productCategory" class="layer-label">Categoria</label>
+                    <div class="layer-input__container">
+                        <select name="categoryId" id="productCategory" class="layer-input__select cp">
+                            <option value="" selected disabled>Selecciona una categoria</option>
+                            <% locals.categories.forEach(category => { %>
+                                <option value="<%= category.id %> "><%= category.name %></option>
+                            <% }) %>
+                        </select>
+                    </div>
+                    <div class="layer-error__container">
+                        <p class="layer-error"></p>
+                    </div>
+                </div>
+
+                <!-- Inputs del formulario -->
+                <div class="form-layer">
+                    <label for="productSubcategory" class="layer-label">Sub categoria</label>
+                    <div class="layer-input__container">
+                        <select name="sbCategoryId" id="productSubcategory" class="layer-input__select cp">
+                            <option value="" selected disabled>Selecciona una sub-categoria</option>
+                            <% locals.categories.forEach(category => { %>
+                                <option value="" disabled style="background-color:black; color: #FFF;"><%= category.name %></option>
+                                <% category.subCategories.forEach(element => { %>
+                                    <option value="<%= element.id %> "><%= element.name %></option>
+                                <% }) %>
+                            <% }) %>
+                        </select>
+                    </div>
+                    <div class="layer-error__container">
+                        <p class="layer-error"></p>
+                    </div>
+                </div>
+
+                <!-- Inputs del formulario -->
+                <div class="form-layer">
+                    <label for="description" class="layer-label">Descripción</label>
+                    <div class="layer-error__container description-error">
+                        <p class="layer-error description-error-msg"></p>
+                    </div>
+                    <div class="layer-input__container">
+                        <textarea name="description" id="productDescription" cols="30" rows="10" class="layer-input__textarea cp"></textarea>
+                    </div>
+                </div>
+
+                <!-- Enviar Formulario -->
+                <div class="form-submit">
+                    <button type="submit" class="btn close">Crear Producto</button>
+                </div>
+            </form>
+        </section>
+    </main>
+    <%- include('../partials/scripts.ejs') %>
+    <script src="/js/create.js"></script>
+</body>
+
+</html>

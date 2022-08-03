@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head.ejs', {title:'Zen Hogar | Welcome'}) %>
+
+    <body>
+        <%- include('../partials/header.ejs') %>
+            <main class="login form-section">
+                <!-- Contenedor del formulario (Registers,logins,create-product,etc) -->
+                <section class="form-container">
+                    <div class="form-container__header">
+                        <h1 class="form-title">Iniciar sesión</h1>
+                        <div class="form-logo">
+                            <a href="/">
+                                <img src="/img/assets/logo/logo_zen_hogar-black.svg" alt="site logo"
+                                    class="form-logo__img">
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Formulario -->
+                    <form action="/users/login" method="POST" id="loginForm">
+                        <!-- Input de Img. Perfil -->
+                        <div class="form-layer">
+                            <div class="form-avatar">
+                                <img src="/img/assets/users/default.png" alt="user-default">
+                            </div>
+
+                            <!-- Input Email -->
+                            <% if (locals.oldData && locals.oldData.email) { %>
+                                <div class="form-layer">
+                                   <% if (locals.errors && locals.errors.email) { %>
+                                    <label for="email" class="layer-label active">Email</label>
+                                    <div class="layer-input__container">
+                                        <input type="email" class="layer-input error" name="email" id="emailInput" value="<%= locals.oldData.email %>"/>
+                                        <i class="material-symbols-outlined layer-input__icon active">email</i>
+                                    </div>
+                                    <div class="layer-error__container active"></div>
+                                        <p class="layer-error active"><%= locals.errors.email.msg %></p>
+                                    </div> 
+                                   <% } else { %>
+                                     <label for="email" class="layer-label">Email</label>
+                                    <div class="layer-input__container">
+                                        <input type="email" class="layer-input" name="email" id="emailInput" value="<%= locals.oldData.email %>"/>
+                                        <i class="material-symbols-outlined layer-input__icon">email</i>
+                                    </div>
+                                    <div class="layer-error__container"></div>
+                                        <p class="layer-error"></p>
+                                    </div>
+                                  <% } %>
+                                </div>
+                            <% } else { %>
+                                <div class="form-layer">
+                                    <label for="email" class="layer-label" id="emailLabel">Email</label>
+                                    <div class="layer-input__container">
+                                        <input type="email" class="layer-input" name="email" id="emailInput" />
+                                        <i class="material-symbols-outlined layer-input__icon" id="emailIcon">email</i>
+                                    </div>
+                                    <div class="layer-error__container" id="emailError"></div>
+                                        <p class="layer-error" id="emailErrorMsg"></p>
+                                    </div>
+                                </div>
+                            <% } %> 
+
+
+                            <!-- Input Password-->
+                            <% if (locals.errors && locals.errors.password) { %>
+                                <div class="form-layer">
+                                    <label for="password" class="layer-label active">Contraseña</label>
+                                    <div class="layer-input__container">
+                                        <input type="password" class="layer-input password error" name="password" id="passwordInput">
+                                        <i class="material-symbols-outlined layer-input__icon active">key</i>
+                                    </div>
+                                    <div class="layer-error__container active">
+                                        <p class="layer-error active"><%= locals.errors.password.msg%> </p>
+                                    </div>
+                                </div>
+                            <% } else { %>
+                            <div class="form-layer">
+                                <label for="password" class="layer-label">Contraseña</label>
+                                <div class="layer-input__container">
+                                    <input type="password" class="layer-input password" name="password" id="passwordInput">
+                                    <i class="material-symbols-outlined layer-input__icon">key</i>
+                                </div>
+                                <% if (locals.loginError && locals.loginError.msg) { %>
+                                    <div class="layer-error__container active">
+                                        <p class="layer-error active"><%= locals.loginError.msg %> </p>
+                                    </div>
+                                <% } else {%>
+                                    <div class="layer-error__container">
+                                        <p class="layer-error"></p>
+                                    </div>
+                                <% } %>
+                            </div>
+                            <% } %>
+
+                            <!-- Inputs del formulario -->
+                            <div class="form-layer">
+                                <label for="terms">
+                                    <input type="checkbox" class="layer-input__checkbox" name="rememberme" id="termsInput">
+                                    Recuerdame
+                                </label>
+                                <div class="layer-error__container">
+                                    <p class="layer-error"></p>
+                                </div>
+                            </div>
+                            <!-- Enviar Formulario -->
+                            <div class="form-submit">
+                                <button type="submit" class="btn close">Iniciar sesión</button>
+                            </div>
+                    </form>
+                    <div class="register-cta">
+                        <h2 class="register-cta__title">¿Aún no tienes cuenta?</h2>
+                        <p class="register-cta__text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat
+                            illo
+                            recusandae molestias rerum error consectetur architecto earum repudiandae facere quo!</p>
+                    </div>
+                    <!-- Botones -->
+                    <div class="form-submit">
+                        <a href="/users/register" class="btn close register-cta__link btn--alt">Registrarse</a>
+                    </div>
+                </section>
+            </main>
+            <script src="/js/login.js"></script>
+            <script src="/js/header.js"></script>
+            <%- include('../partials/scripts.ejs') %>
+    </body>
+
+</html>

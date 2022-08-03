@@ -1,0 +1,62 @@
+[
+	{
+		"id": 1652576870441,
+		"productName": "Sofa 2 Cuerpos Sillon Italiano",
+		"productCategory": "sofa-L",
+		"productSize": "1.6m x 0.8m x 0.7m",
+		"productImg": "1652576870437-img.jpg",
+		"productPrice": 38500,
+		"productDiscount": 7,
+		"productDescription": "Estructura madera saligna encolada y encastrada\r\n\r\nPlaca espuma 26 kg alta densidad\r\n\r\nDetalles costura doble\r\n\r\nTELA PANA ,CHENILLE, Antidesgarro"
+	},
+	{
+		"id": 1652577047810,
+		"productName": "Silla Plastica Italiano P/ Metálicas X2 Unidades",
+		"productSize": "81cm x 59cm x 54cm",
+		"productImg": "1652577047806-img.jpg",
+		"productPrice": 19410,
+		"productDescription": "Sillón Italiano Patas Metalicas x 2 unidades Colombraro\r\nMedidas del producto: Alto 81cm - Ancho 59cm - Profundidad 54cm\r\n\r\nColores disponibles: Negro - Blanco\r\n\r\nLas sillas vienen desarmadas. Se les tiene que incrustar las patas"
+	},
+	{
+		"id": 1652577165487,
+		"productName": "Mesa Ratona 85cm X 50cm Linea Burano",
+		"productSize": "85 cm x 50cm x 40cm",
+		"productImg": "1652577165483-img.jpg",
+		"productPrice": 7500,
+		"productDescription": "Mesa ratona linea Burano de Peccare Muebles Práctica, ligera y desarmable. Diseño propio, elegante moderno y firme."
+	},
+	{
+		"id": 1652577217300,
+		"productName": "Sofa Cama 3 Cuerpos 3 Posiciones Sillon",
+		"productCategory": "sofa-L",
+		"productSize": "1.8 m x 1.1 m x 0.7 m",
+		"productImg": "1652577217296-img.jpg",
+		"productPrice": 46500,
+		"productDescription": "Estructura madera saligna encolada y encastrada\r\n\r\nPlaca espuma 26 kg alta densidad\r\n\r\nDetalles costura doble\r\n\r\nTELA PANA , LINO ANTIDESGARRO"
+	},
+	{
+		"id": 1653523995277,
+		"productName": "Sillon Gris",
+		"productSize": "120 x 60 x 180",
+		"productImg": "1655754040589-img.jpg",
+		"productPrice": 8000,
+		"productDescription": "Sillón gris"
+	},
+	{
+		"id": 1655558586991,
+		"productName": "Compresor",
+		"productSize": "10x10x10",
+		"productPrice": 9000,
+		"productDescription": "un buen compresor",
+		"productImg": "1655576384731-img.png"
+	},
+	{
+		"id": 1655754127536,
+		"productName": "sillon L",
+		"productCategory": "sofa-l",
+		"productSize": "100x100x100",
+		"productImg": "1655754127519-img.jpg",
+		"productPrice": 9500,
+		"productDescription": "Un sillon muy comodo"
+	}
+]
