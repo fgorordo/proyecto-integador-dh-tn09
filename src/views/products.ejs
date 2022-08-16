@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <title>Proyecto Integrador - Home</title>
+</head>
+
+<body>
+    <%- include('./partials/header.ejs') %>
+        <main>
+            <div class="container">
+                <div class="products-header">
+                    <div class="search-bar">
+                        <form action="/products/search/">
+                            <div class="form__group search-bar__input">
+                                <div class="form__input">
+                                    <input type="search" class="input" name="filter" placeholder="Busquemos algo...">
+                                </div>
+                                <button type="submit" class="search-btn"><i class='bx bx-search'></i></button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="products-pages">
+                        <% if (parseInt(page)===0) { %>
+                            <div class="last-arrow arrow-disabled">
+                                <a href="/products/search?filter=<%=locals.filterBy%>&page=<%= parseInt(page) - 1 %>"
+                                    class="pag-btn arrow-btn">
+                                    <i class='bx bx-chevron-left'></i>
+                                </a>
+                            </div>
+                            <a href="/products/search?filter=<%=locals.filterBy%>&page=<%= page %>" class="pag-btn">
+                                <%= parseInt(page)+1 %>
+                            </a>
+                            <% if (page> locals.lastPage - 1) { %>
+                                <div class="next-arrow arrow-disabled">
+                                    <a href="/products/search?filter=<%=locals.filterBy%>&page=<%= parseInt(page) + 1 %>"
+                                        class="pag-btn arrow-btn">
+                                        <i class='bx bx-chevron-right'></i>
+                                    </a>
+                                </div>
+                                <% } else { %>
+                                    <div class="next-arrow">
+                                        <a href="/products/search?filter=<%=locals.filterBy%>&page=<%= parseInt(page) + 1 %>"
+                                            class="pag-btn arrow-btn">
+                                            <i class='bx bx-chevron-right'></i>
+                                        </a>
+                                    </div>
+                                    <%}%>
+                                        <% } else if (parseInt(page)> 0) {%>
+                                            <div class="last-arrow">
+                                                <a href="/products/search?filter=<%=locals.filterBy%>&page=<%= parseInt(page) - 1 %>"
+                                                    class="pag-btn arrow-btn">
+                                                    <i class='bx bx-chevron-left'></i>
+                                                </a>
+                                            </div>
+                                            <a href="/products/search?filter=<%=locals.filterBy%>&page=<%= page %>"
+                                                class="pag-btn">
+                                                <%= parseInt(page)+1 %>
+                                            </a>
+                                            <% if (page> locals.lastPage - 1) { %>
+                                                <div class="next-arrow arrow-disabled arrow-btn">
+                                                    <a href="/products/search?filter=<%=locals.filterBy%>&page=<%= parseInt(page) + 1 %>"
+                                                        class="pag-btn">
+                                                        <i class='bx bx-chevron-right'></i>
+                                                    </a>
+                                                </div>
+                                                <% } else { %>
+                                                    <div class="next-arrow">
+                                                        <a href="/products/search?filter=<%=locals.filterBy%>&page=<%= parseInt(page) + 1 %>"
+                                                            class="pag-btn arrow-btn">
+                                                            <i class='bx bx-chevron-right'></i>
+                                                        </a>
+                                                    </div>
+                                                    <%}%>
+                                                        <%}%>
+                    </div>
+                </div>
+                <% if (locals.products.length <=0) { %>
+                    <div class="not-results">
+                        <h2>Lo sentimos no encontramos resultados para tu busqueda</h2>
+                        <span><i class='bx bx-error-circle'></i></span>
+                    </div>
+                    <% } else { %>
+                        <div class="products__show-container">
+                            <% products.forEach(product=> { %>
+                                <article class="product-card">
+                                    <div class="product-card__header">
+                                        <a href="/products/detail/<%= product.id %> ">
+                                            <img src="/img/uploads/products/<%= product.productImg %> "
+                                                alt="<%= product.name %> ">
+                                        </a>
+                                    </div>
+                                    <div class="product-card__body">
+                                        <div class="product-card__body-info">
+                                            <span>
+                                                <%= product.name %>
+                                            </span>
+                                            <p class="product-card__body-price">
+                                                $ <%= product.price %>
+                                            </p>
+                                        </div>
+                                        <div class="product-card__body-btns">
+                                            <a href="/products/detail/<%= product.id %> "
+                                                class="card-btn card-btn__detail"><i class='bx bx-show-alt'></i></a>
+                                                <form action="/users/cart/add" method="POST">
+                                                    <input type="text" name="productId" value="<%= product.id%>" class="product-card-input">
+                                                    <button type="submit" class="card-btn card-btn__add-to-cart"><i
+                                                        class='bx bx-cart-add'></i></button>
+                                                </form>
+                                        </div>
+                                    </div>
+                                </article>
+                                <% }) %>
+                        </div>
+                        <%}%>
+                            </section>
+            </div>
+        </main>
+        <script src="/js/header.js"></script>
+</body>
+
+</html>

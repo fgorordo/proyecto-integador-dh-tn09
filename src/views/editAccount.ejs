@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <title>Proyecto Integrador - Edit Account</title>
+</head>
+
+<body>
+    <%- include('./partials/header.ejs') %> 
+    <main>
+        <section class="register-section container">
+            <article class="register__container sections__title">
+                <h1>Mi información</h1>
+                <p>Manten tu información al día para que podamos contactarte en caso de necesitarlo sin ningun problema, ademas te ayudara en futura operaciones.</p>
+                <form action="/users/profile/edit?_method=PATCH" method="POST" class="register-form" enctype="multipart/form-data">
+
+                    <div class="form__group">
+                        <div class="form__input img-input">
+                            <div class="form__input--img">
+                                <img src="/img/uploads/users/<%= locals.userLogged.profileImg %> " alt="Default user photo">
+                                <label for="uploadPic" class="upload-picture"><i class='bx bx-camera' ></i></label>
+                            </div>
+                        </div>
+                        <div class="form_group-error" id="imgErrors">
+                            <span id="imgErrorMsg">Lorem ipsum dolor sit amet.</span>
+                        </div>
+                    </div>
+
+                    <input type="file" name="profileImg" id="uploadPic" accept="image/*">
+
+                    <div class="form__group">
+                        <% if (locals.errors && locals.errors.name) { %>
+                            <div class="form__input active">
+                                <label for="name" class="label active">
+                                    Nombre
+                                </label>
+                                <input type="text" class="input active" name="name" value="<%= locals.errors.name.value %>">
+                            </div>
+                            <div class="form_group-error active">
+                                <span class="active"><%= locals.errors.name.msg %> </span>
+                            </div>
+                         
+                        <% } else if(locals.oldData && locals.oldData.name) { %>
+                            <div class="form__input">
+                                <label for="name" class="label">
+                                    Nombre
+                                </label>
+                                <input type="text" class="input" name="name" value="<%= locals.oldData.name %>">
+                            </div>
+                            <div class="form_group-error">
+                                <span>Lorem ipsum dolor sit amet.</span>
+                            </div>
+
+                        <% } else {%>
+                            <div class="form__input">
+                                <label for="name" class="label">
+                                    Nombre
+                                </label>
+                                <input type="text" class="input" name="name">
+                            </div>
+                            <div class="form_group-error">
+                                <span>Lorem ipsum dolor sit amet.</span>
+                            </div>
+                        <% } %>
+                    </div>
+
+                    <div class="form__group">
+                        <% if (locals.errors && locals.errors.lastname) { %>
+                            <div class="form__input active">
+                                <label for="lastname" class="label active">
+                                    Apellido
+                                </label>
+                                <input type="text" class="input active" name="lastname" value="<%= locals.errors.lastname.value %> ">
+                            </div>
+                            <div class="form_group-error active">
+                                <span class="active"><%= locals.errors.lastname.msg %></span>
+                            </div>
+                        <% } else if(locals.oldData && locals.oldData.lastname) { %>
+                            <div class="form__input">
+                                <label for="lastname" class="label">
+                                    Apellido
+                                </label>
+                                <input type="text" class="input" name="lastname" value="<%= locals.oldData.lastname %>">
+                            </div>
+                            <div class="form_group-error">
+                                <span>Lorem ipsum dolor sit amet.</span>
+                            </div>
+                        <% } else {%>
+                            <div class="form__input">
+                                <label for="lastname" class="label">
+                                    Apellido
+                                </label>
+                                <input type="text" class="input" name="lastname">
+                            </div>
+                            <div class="form_group-error">
+                                <span>Lorem ipsum dolor sit amet.</span>
+                            </div>
+                        <% } %>
+                    </div>
+        
+                    <div class="form__group">
+                        <% if (locals.errors && locals.errors.phone) { %>
+                            <div class="form__input active">
+                                <label for="phone" class="label active">
+                                    Celular
+                                </label>
+                                <input type="text" class="input active" name="phone" value="<%= locals.errors.phone.value %> ">
+                            </div>
+                            <div class="form_group-error active">
+                                <span class="active"><%= locals.errors.phone.msg %></span>
+                            </div>
+                        <% } else if(locals.oldData && locals.oldData.phone) { %>
+                            <div class="form__input">
+                                <label for="phone" class="label">
+                                    Celular
+                                </label>
+                                <input type="text" class="input" name="phone" value="<%= locals.oldData.phone %>">
+                            </div>
+                            <div class="form_group-error">
+                                <span>Lorem ipsum dolor sit amet.</span>
+                            </div>
+                        <% } else {%>
+                            <div class="form__input">
+                                <label for="phone" class="label">
+                                    Celular
+                                </label>
+                                <input type="text" class="input" name="phone">
+                            </div>
+                            <div class="form_group-error">
+                                <span>Lorem ipsum dolor sit amet.</span>
+                            </div>
+                        <% } %>
+                    </div>
+
+                    <div class="form__group">
+                        <% if (locals.errors && locals.errors.email) { %>
+                            <div class="form__input active">
+                                <label for="email" class="label active">
+                                    Email
+                                </label>
+                                <input type="email" class="input active" name="email" value="<%= locals.errors.email.value %> ">
+                            </div>
+                            <div class="form_group-error active">
+                                <span class="active"><%= locals.errors.email.msg %></span>
+                            </div>
+                        <% } else if(locals.oldData && locals.oldData.email) { %>
+                            <div class="form__input">
+                                <label for="email" class="label">
+                                    Email
+                                </label>
+                                <input type="email" class="input" name="email" value="<%= locals.oldData.email %>">
+                            </div>
+                            <div class="form_group-error">
+                                <span>Lorem ipsum dolor sit amet.</span>
+                            </div>
+                        <% } else {%>
+                            <div class="form__input">
+                                <label for="email" class="label">
+                                    Email
+                                </label>
+                                <input type="email" class="input" name="email">
+                            </div>
+                            <div class="form_group-error">
+                                <span>Lorem ipsum dolor sit amet.</span>
+                            </div>
+                        <% } %>
+                    </div>
+
+                    <div class="form__group">
+                        <% if (locals.errors && locals.errors.country) { %>
+                            <div class="form__input active">
+                                <label for="country" class="label active">
+                                    Pais
+                                </label>
+                                <input type="text" class="input active" name="country" value="<%= locals.errors.country.value %> ">
+                            </div>
+                            <div class="form_group-error active">
+                                <span class="active"><%= locals.errors.country.msg %></span>
+                            </div>
+                        <% } else if(locals.oldData && locals.oldData.country) { %>
+                            <div class="form__input">
+                                <label for="country" class="label">
+                                    Pais
+                                </label>
+                                <input type="text" class="input" name="country" value="<%= locals.oldData.country %>">
+                            </div>
+                            <div class="form_group-error">
+                                <span>Lorem ipsum dolor sit amet.</span>
+                            </div>
+                        <% } else {%>
+                            <div class="form__input">
+                                <label for="country" class="label">
+                                    Pais
+                                </label>
+                                <input type="text" class="input" name="country">
+                            </div>
+                            <div class="form_group-error">
+                                <span>Lorem ipsum dolor sit amet.</span>
+                            </div>
+                        <% } %>
+                    </div>
+
+                    <div class="form__group">
+                        <% if (locals.errors && locals.errors.state) { %>
+                            <div class="form__input active">
+                                <label for="state" class="label active">
+                                    Estado / Provincia
+                                </label>
+                                <input type="text" class="input active" name="state" value="<%= locals.errors.state.value %> ">
+                            </div>
+                            <div class="form_group-error active">
+                                <span class="active"><%= locals.errors.state.msg %></span>
+                            </div>
+                        <% } else if(locals.oldData && locals.oldData.state) { %>
+                            <div class="form__input">
+                                <label for="state" class="label">
+                                    Estado / Provincia
+                                </label>
+                                <input type="text" class="input" name="state" value="<%= locals.oldData.state %>">
+                            </div>
+                            <div class="form_group-error">
+                                <span>Lorem ipsum dolor sit amet.</span>
+                            </div>
+                        <% } else {%>
+                            <div class="form__input">
+                                <label for="state" class="label">
+                                    Estado / Provincia
+                                </label>
+                                <input type="text" class="input" name="state">
+                            </div>
+                            <div class="form_group-error">
+                                <span>Lorem ipsum dolor sit amet.</span>
+                            </div>
+                        <% } %>
+                    </div>
+
+                    <div class="form__group">
+                        <% if (locals.errors && locals.errors.city) { %>
+                            <div class="form__input active">
+                                <label for="city" class="label active">
+                                    Ciudad
+                                </label>
+                                <input type="text" class="input active" name="city" value="<%= locals.errors.city.value %> ">
+                            </div>
+                            <div class="form_group-error active">
+                                <span class="active"><%= locals.errors.city.msg %></span>
+                            </div>
+                        <% } else if(locals.oldData && locals.oldData.city) { %>
+                            <div class="form__input">
+                                <label for="city" class="label">
+                                    Ciudad
+                                </label>
+                                <input type="text" class="input" name="city" value="<%= locals.oldData.city %>">
+                            </div>
+                            <div class="form_group-error">
+                                <span>Lorem ipsum dolor sit amet.</span>
+                            </div>
+                        <% } else {%>
+                            <div class="form__input">
+                                <label for="city" class="label">
+                                    Ciudad
+                                </label>
+                                <input type="text" class="input" name="city">
+                            </div>
+                            <div class="form_group-error">
+                                <span>Lorem ipsum dolor sit amet.</span>
+                            </div>
+                        <% } %>
+                    </div>
+
+                    <div class="form__group">
+                        <% if (locals.errors && locals.errors.zipcode) { %>
+                            <div class="form__input active">
+                                <label for="zipcode" class="label active">
+                                    Código postal
+                                </label>
+                                <input type="text" class="input active" name="zipcode" value="<%= locals.errors.zipcode.value %> ">
+                            </div>
+                            <div class="form_group-error active">
+                                <span class="active"><%= locals.errors.zipcode.msg %></span>
+                            </div>
+                        <% } else if(locals.oldData && locals.oldData.zipcode) { %>
+                            <div class="form__input">
+                                <label for="zipcode" class="label">
+                                    Código postal
+                                </label>
+                                <input type="text" class="input" name="zipcode" value="<%= locals.oldData.zipcode %>">
+                            </div>
+                            <div class="form_group-error">
+                                <span>Lorem ipsum dolor sit amet.</span>
+                            </div>
+                        <% } else {%>
+                            <div class="form__input">
+                                <label for="zipcode" class="label">
+                                    Código postal
+                                </label>
+                                <input type="text" class="input" name="zipcode">
+                            </div>
+                            <div class="form_group-error">
+                                <span>Lorem ipsum dolor sit amet.</span>
+                            </div>
+                        <% } %>
+                    </div>
+
+                    <div class="form__group">
+                        <% if (locals.errors && locals.errors.address) { %>
+                            <div class="form__input active">
+                                <label for="address" class="label active">
+                                    Direccion
+                                </label>
+                                <input type="text" class="input active" name="address" value="<%= locals.errors.address.value %> ">
+                            </div>
+                            <div class="form_group-error active">
+                                <span class="active"><%= locals.errors.address.msg %></span>
+                            </div>
+                        <% } else if(locals.oldData && locals.oldData.address) { %>
+                            <div class="form__input">
+                                <label for="address" class="label">
+                                    Direccion
+                                </label>
+                                <input type="text" class="input" name="address" value="<%= locals.oldData.address %>">
+                            </div>
+                            <div class="form_group-error">
+                                <span>Lorem ipsum dolor sit amet.</span>
+                            </div>
+                        <% } else {%>
+                            <div class="form__input">
+                                <label for="address" class="label">
+                                    Direccion
+                                </label>
+                                <input type="text" class="input" name="address">
+                            </div>
+                            <div class="form_group-error">
+                                <span>Lorem ipsum dolor sit amet.</span>
+                            </div>
+                        <% } %>
+                    </div>
+
+                    
+
+                    <div class="form__btns">
+                        <button type="submit" class="btn">Actualizar</button>
+                    </div>
+                </form>
+            </article>
+        </section>
+    </main>
+    <script src="/js/header.js"></script>
+    <script src="/js/register.js"></script>
+</body>
+
+</html>

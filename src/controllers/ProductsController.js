@@ -1,82 +1,78 @@
-const fs = require('fs');
-const { validationResult } = require('express-validator')
-//DB
-const db = require('../database/models')
+const db = require('../database/models/index');
+const { Op } = require("sequelize");
 
-const productController = {
-  /* /products <GET> */
-  index: async (req, res) => {
-    try {
-      const productsResponse = await db.Product.findAll({include:['Category', 'sbCategory']});
-      const products = [];
-      const categoriesResponse = await db.Category.findAll({include:['subCategories']});
-      const categories = [];
+const productsController = {
+    index: (req, res) => {
+        return res.send('Hello world')
+    },
+    detail: async (req, res) => {
+        try {
+            let response = await db.Product.findOne({ where: { id: req.params.id }, include: ['sbCategory', 'Category'] });
+            let data = response.toJSON();
+            console.log(data)
+            return res.render('./productDetails.ejs', { product: data })
+        } catch (error) {
+            console.log(error)
+        }
+    },
+    create: async (req, res) => {
+        try {
+            let response = await db.Category.findAll({ include: ['subCategories'] });
+            let data = response.map(data => {
+                return data.toJSON();
+            })
+            return res.render('./createProduct.ejs', {
+                categories: data,
+            })
+        } catch (error) {
+            console.log(error)
+        }
 
-      productsResponse.forEach(product => {
-        products.push(product.toJSON());
-      });
+    },
+    findBy: async (req, res) => {
+        try {    
+            let { filter, page } = req.query;
+            if(page === undefined) {
+                page = 0;
+            }
 
-      categoriesResponse.forEach(category => {
-        categories.push(category.toJSON())
-      })
 
-      console.log(categories[0].subCategories)
-      res.render('./products/products', {products,categories});
-    } catch (error) {
-      console.log(error);
+            let response = null;
+            switch (filter) {
+                case 'muebles':
+                    response = await db.Product.findAndCountAll({ where: { categoryId: '1' }, include: ['Category', 'sbCategory'], limit: 9, offset: page * 9 });
+                    break;
+                case 'accesorios':
+                    response = await db.Product.findAndCountAll({ where: { categoryId: '3' }, include: ['Category', 'sbCategory'], limit: 9, offset: page * 9 });
+                    break;
+                case 'iluminacion':
+                    response = await db.Product.findAndCountAll({ where: { categoryId: '2' }, include: ['Category', 'sbCategory'], limit: 9, offset: page * 9 });
+                    break;
+                case 'all':
+                    response = await db.Product.findAndCountAll({ include: ['Category', 'sbCategory'], limit: 9, offset: page * 9 });
+                    break;
+                case 'ofertas':
+                    response = await db.Product.findAndCountAll({ where: { discount: '1' }, include: ['Category', 'sbCategory'], limit: 9, offset: page * 9 });
+                    break;
+                default:
+                    response = await db.Product.findAndCountAll({ where:{name: {[Op.like]: `%${filter}%`}}, include: ['Category', 'sbCategory'], limit:9, offset: page * 9});
+                    break;
+            }
+            let data = response.rows.map(data => {
+                return data.toJSON();
+            })
+
+
+            return res.render('./products.ejs', {
+                products: data,
+                page: page,
+                lastPage: response.count / 9,
+                filterBy: filter,
+            });
+        } catch (error) {
+            console.log(error)
+        }
     }
-  },
+}
 
-
-  /* /products/create <GET> */
-  createProduct: async (req, res) => {
-    let data = await db.Category.findAll()
-    let cleanData = [];
-    data.forEach(element => {
-      cleanData.push(element.toJSON());
-    })
-    return res.render('./products/create', {
-      categories: cleanData
-    })
-  },
-
-  /* /products/create <POST> */
-  uploadProduct: (req, res) => {
-    const results = validationResult(req);
-    if (results.errors.length > 0) {
-      return res.render('./products/create', {
-        errors: results.mapped(),
-        oldData: req.body,
-        categories:categories[0]
-      });
-    }
-    let newProduct = {
-      id: Date.now(),
-      productName: req.body.productName,
-      productCategory: req.body.productCategory,
-      productSize: req.body.productSize,
-      productImg: req.file.filename,
-      productPrice: parseInt(req.body.productPrice),
-      productDescription: req.body.productDescription
-    }
-    products.push(newProduct)
-    fs.writeFileSync(productsFilePath, JSON.stringify(products, null, '\t'));
-    res.redirect('/products')
-  },
-
-  /* /products/search <GET> */
-  search: (req, res) => {
-    let search = true
-    let searchResults = products.filter(element => {
-      return element.productName.toLowerCase().includes(req.query.keyword.toLowerCase()) === true
-    })
-    res.render('products/index', {
-      products: searchResults,
-      userSearch: req.query.keyword,
-      categories: categories[0],
-      search: search
-    })
-  },
-};
-
-module.exports = productController;  
+module.exports = productsController;

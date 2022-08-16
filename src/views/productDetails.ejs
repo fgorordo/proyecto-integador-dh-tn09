@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <title>Proyecto Integrador - Detalle de producto</title>
+</head>
+
+<body>
+    <%- include('./partials/header.ejs') %>
+        <main>
+            <div class="container product-detail">
+                <div class="product-photo">
+                    <img src="/img/uploads/products/<%= product.productImg%>" alt="<%= product.name %> ">
+                </div>
+                <div class="product-menu">
+                    <div class="product-info__body">
+                        <h1><%= product.name %> </h1>
+                        <p>$<%=product.price%></p>
+                        <span><%=product.Category.name%>   >>  <%= product.sbCategory.name %> </span>
+                    </div>
+                    <form action="#" method="POST" class="add-to-cart__form">
+                        <div class="form__group">
+                            <label for="items" class="label add-to-cart__items">Cantidad</label>
+                            <div class="form__input">
+                                <input type="number" class="input" name="items" value="1">
+                            </div>
+                        </div>
+                        <div class="form__btns">
+                            <button type="submit" class="btn">Añadir al carrito</button>
+                        </div>
+                    </form>
+                    <div class="product-description__container">
+                        <h2>Descripción</h2>
+                        <p class="product-description">
+                            <%= product.description %> 
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="container products__comments">
+                <div class="products__comments-title">
+                    <h2>Comentarios</h2>
+                </div>
+                <div class="comments-show">
+                    <div class="comment-card">
+                        <div class="comment-card__img">
+                            <img src="https://picsum.photos/200" alt="">
+                            <h3>Johana Doe</h3>
+                        </div>
+                        <div class="comment-card__text">
+                            
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem unde veniam natus aliquam quo possimus inventore eligendi a, delectus quam ipsum, iure incidunt esse quasi veritatis laudantium dolore molestiae sunt illum cumque ad quidem mollitia doloribus. Id itaque dolore adipisci ducimus accusantium aut! Facere id eos reprehenderit laudantium ad impedit.</p>
+                        </div>
+                    </div>
+
+                    <div class="comment-card">
+                        <div class="comment-card__img">
+                            <img src="https://picsum.photos/200" alt="">
+                            <h3>Johana Doe</h3>
+                        </div>
+                        <div class="comment-card__text">
+                            
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem unde veniam natus aliquam quo possimus inventore eligendi a, delectus quam ipsum, iure incidunt esse quasi veritatis laudantium dolore molestiae sunt illum cumque ad quidem mollitia doloribus. Id itaque dolore adipisci ducimus accusantium aut! Facere id eos reprehenderit laudantium ad impedit.</p>
+                        </div>
+                    </div>
+
+                    <div class="comment-card">
+                        <div class="comment-card__img">
+                            <img src="https://picsum.photos/200" alt="">
+                            <h3>Johana Doe</h3>
+                        </div>
+                        <div class="comment-card__text">
+                            
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem unde veniam natus aliquam quo possimus inventore eligendi a, delectus quam ipsum, iure incidunt esse quasi veritatis laudantium dolore molestiae sunt illum cumque ad quidem mollitia doloribus. Id itaque dolore adipisci ducimus accusantium aut! Facere id eos reprehenderit laudantium ad impedit.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <script src="/js/header.js"></script>
+</body>
+
+</html>

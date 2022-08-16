@@ -1,131 +1,197 @@
-const { validationResult, body } = require('express-validator')
-const bcryptjs = require('bcryptjs')
-const db = require('../database/models/index')
-
+const db = require('../database/models/index');
+const {Op} = require('sequelize')
+const { validationResult, matchedData } = require('express-validator')
+const bcrypt = require('bcryptjs');
 
 const usersController = {
-  //########### LOGIN ##########
-  login: (req, res) => {
-    res.render('./users/login');
-  },
+    index: (req, res) => {
+        return res.render('./login')
+    },
+    register: (req, res) => {
+        return res.render('./register')
+    },
+    details: (req, res) => {
+        return res.render('./account')
+    },
+    registerNewUser: async (req, res) => {
+        try {
+            let validations = validationResult(req);
+            if (!validations.isEmpty()) {
+                console.log(req.body)
+                return res.render('./register', {
+                    errors: validations.mapped(),
+                    oldData: req.body,
+                })
+            }
+            let newUser = {
+                ...matchedData(req),
+                profileImg: 'default.png'
+            }
 
-  //########### REGISTRAR USAURIO ###########
-  register: (req, res) => {
-    res.render('./users/register')
-  },
+            delete newUser.repassword
+            delete newUser.terms
+            if (req.file) {
+                newUser.profileImg = req.file.filename
+            }
 
-  //############# CREAR USUARIO ############
-  create: async (req, res) => {
-    try {
-      const results = await validationResult(req)
-      if (!results.isEmpty()) {
-        return res.render('./users/register', {
-          errors: results.mapped(),
-          oldData: req.body,
-        })
-      }
+            let request = {
+                ...newUser,
+                password: bcrypt.hashSync(newUser.password, 10)
+            }
+            let createdUser = await db.User.create(request);
 
+            delete createdUser.createdAt
+            delete createdUser.deletedAt
+            delete createdUser.updatedAt
+            delete createdUser.password
+            req.session.userLogged = createdUser;
 
-      delete req.body.repassword
-      delete req.body.terms
-      await db.User.create({
-        ...req.body,
-        password: bcryptjs.hashSync(req.body.password, 10),
-        profileImg: req.file ? req.file.filename : 'default.jpg'
-      })
-        .then(data => {
-          delete data.password;
-          delete data.createdAt;
-          delete data.updatedAt;
-          req.session.userLogged = data.toJSON()
-          return res.redirect('/')
-        })
-    } catch (error) {
-      console.log(error)
-    }
-  },
+            return res.redirect('/')
 
-  //############# REGISTRO EXITOSO ##############
-  registerSuccessful: (req, res) => {
-    res.render('./users/register_success')
-  },
-
-
-  // Procesando login
-  loginValidation: async (req, res) => {
-    try {
-      const results = validationResult(req)
-      if (!results.isEmpty()) {
-        return res.render('./users/login', {
-          errors: results.mapped(),
-          oldData: req.body,
-        })
-      }
-
-      let user = await db.User.findOne({ where: { email: req.body.email }, include: ['accountCart', 'Rol'] })
-      let cleanData = user.toJSON();
-      if (bcryptjs.compareSync(req.body.password, cleanData.password)) {
-        delete cleanData.password
-        delete cleanData.createdAt
-        delete cleanData.updatedAt
-        req.session.userLogged = cleanData
-
-        if (req.body.rememberme) {
-          res.cookie('token', req.body.email, { maxAge: (1000 * 60) * 60 })
+        } catch (error) {
+            console.log(error)
         }
+    },
+    login: async (req, res) => {
+        try {
+            let { email } = matchedData(req)
 
-        return res.redirect('/')
-      }
-      return res.render('./users/login', {
-        oldData: req.body,
-        loginError: {
-          msg: 'Los datos ingresados no son válidos'
-        },
-      })
+            let response = await db.User.findOne({ where: { email: email }, include: ['accountCart', 'Rol'] })
 
-    } catch (error) {
-      //Pendiente realizar un manejador de errores
-      console.log(error)
+            let data = response.toJSON();
+
+            delete data.password;
+            delete data.createdAt;
+            delete data.updatedAt;
+            delete data.deletedAt;
+
+            req.session.userLogged = data;
+
+            if (req.body.rememberme) {
+                res.cookie('token', email, { maxAge: (1000 * 60) * 60 })
+            }
+
+            return res.redirect('/')
+
+        } catch (error) {
+            console.log(error)
+        }
+    },
+    logout: (req, res) => {
+        res.clearCookie('token');
+        req.session.destroy();
+        return res.redirect('/');
+    },
+    getCart: async (req,res) => {
+        try {
+            let response = await db.User.findOne({where:{id: req.session.userLogged.id},include:['accountCart']});
+            let {accountCart} = response.toJSON();
+            return res.render('./cart.ejs', {products:accountCart})
+        } catch (error) {
+            console.log(error)
+        }
+    },
+    addToCart: async (req, res) => {
+        try {
+            await db.Cart.create({
+                UserId: req.session.userLogged.id,
+                ProductId:req.body.productId,
+            })
+            let response = await db.User.findOne({where:{id:req.session.userLogged.id}, include:['accountCart']});
+            let data = response.toJSON();
+            req.session.userLogged = data;
+            return res.redirect('/users/cart');
+        }catch (error) {
+            console.log(error)
+        }
+    },
+    deleteCartItem: async (req, res) => {
+        try {
+            await db.Cart.destroy({where:{[Op.and]: [{productId: req.body.product},{userId: req.session.userLogged.id}]}});
+            let response = await db.User.findOne({where:{id:req.session.userLogged.id}, include:['accountCart']});
+            let data = response.toJSON();
+            req.session.userLogged = data;
+            return res.redirect('/users/cart');
+        } catch (error) {
+            console.log(error)
+        }
+    },
+    deleteAllCartItems: async (req, res) => {
+        try {
+            await db.Cart.destroy({where:{userId: req.session.userLogged.id}});
+            let response = await db.User.findOne({where:{id:req.session.userLogged.id}, include:['accountCart']});
+            let data = response.toJSON();
+            req.session.userLogged = data;
+            return res.redirect('/users/cart')
+        } catch (error) {
+            console.log(error)
+        }
+    },
+    editProfile: async (req,res) => {
+        try {
+            let response = await db.User.findOne({where:{id:req.session.userLogged.id}})
+            let data = response.toJSON();
+            return res.render('./editAccount.ejs',{oldData:data})
+        } catch (error) {
+            console.log(error)
+        }
+    },
+    changePasswordForm: (req,res) => {
+        res.render('./changePassword.ejs')
+    },
+    changePassword: async (req,res) => {
+        try {
+            let newUserPassword = bcrypt.hashSync(req.body.password, 10);
+            let userData = req.session.userLogged;
+            let newUserData = {
+                ...userData,
+                password: newUserPassword,
+            }
+            let response = await db.User.update(newUserData,{where:{id:req.session.userLogged.id}})
+            return res.redirect('/users/profile')
+        } catch (error) {
+            console.log(error)
+        }
+    },
+    editProfileSubmit: async (req, res) => {
+        try {
+            let validations = validationResult(req);
+            if (!validations.isEmpty()) {
+                return res.render('./editAccount', {
+                    errors: validations.mapped(),
+                    oldData: req.body,
+                })
+            }
+            let response = await db.User.findOne({where:{id:req.session.userLogged.id}, include:['Rol', 'accountCart']});
+            let data = response.toJSON();
+            let oldUserData = {
+                ...data
+            }
+
+            for(let newData in matchedData(req)) {
+                console.log(newData)
+                if(req.body[newData] !== oldUserData.newData) {
+                    oldUserData[newData] = req.body[newData]; 
+                }
+            }
+
+            if (req.file) {
+                oldUserData.profileImg = req.file.filename
+            }
+
+            await db.User.update(oldUserData,{where:{id: req.session.userLogged.id}})
+            
+            delete oldUserData.password
+            delete oldUserData.deletedAt
+            delete oldUserData.updatedAt
+            delete oldUserData.createdAt
+            
+            req.session.userLogged = oldUserData;
+            return res.redirect('/users/profile');
+        } catch (error) {
+            console.log(error)
+        }
     }
-  },
-
-  profile: (req, res) => {
-    console.log(req.session.userLogged)
-    res.render('./users/profile', { user: req.session.userLogged });
-  },
-
-  updateProfile: async (req, res) => {
-    try {
-      let user = await db.User.findOne({ where: { id: req.params.id }, include: ['accountCart'] })
-      let oldUserData = user.toJSON()
-      let updatedData = {
-        ...oldUserData,
-        ...req.body
-      }
-
-      delete updatedData.password;
-
-      if (req.file) {
-        updatedData.profileImg = req.file.filename
-      };
-
-      
-      await db.User.update(updatedData, {
-        where: { id: req.params.id }
-      });
-      req.session.userLogged = updatedData;
-      return res.redirect('/users/profile');
-
-    } catch (error) {
-      console.log(error)
-      return res.send('Ooops! algo salio muy mal...')
-    }
-  },
-  logout: (req, res) => {
-    res.clearCookie('token');
-    req.session.destroy();
-    return res.redirect('/');
-  },
 }
 
-module.exports = usersController
+module.exports = usersController;

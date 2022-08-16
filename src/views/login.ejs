@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <title>Proyecto Integrador - Login</title>
+</head>
+
+<body>
+    <%- include('./partials/header.ejs') %> 
+    <main>
+        <section class="login-section container">
+            <article class="login__container sections__title">
+                <h1>Iniciar sesión</h1>
+                <p>Ingresa tu email y contrseña para acceder a tu cuenta</p>
+                <form action="/users/login" method="POST" class="login-form">
+                    <div class="form__group">
+                        <% if (locals.errors && locals.errors.email) { %>
+                            <div class="form__input active">
+                                <label for="email" class="label active">
+                                    Email
+                                </label>
+                                <input type="email" class="input active" name="email" value="<%= locals.errors.email.value %> ">
+                            </div>
+                            <div class="form_group-error active">
+                                <span class="active"><%= locals.errors.email.msg %></span>
+                            </div>
+                        <% } else if(locals.oldData && locals.oldData.email) { %>
+                            <div class="form__input">
+                                <label for="email" class="label">
+                                    Email
+                                </label>
+                                <input type="email" class="input" name="email" value="<%= locals.oldData.email %>">
+                            </div>
+                            <div class="form_group-error">
+                                <span>Lorem ipsum dolor sit amet.</span>
+                            </div>
+                        <% } else {%>
+                            <div class="form__input">
+                                <label for="email" class="label">
+                                    Email
+                                </label>
+                                <input type="email" class="input" name="email">
+                            </div>
+                            <div class="form_group-error">
+                                <span>Lorem ipsum dolor sit amet.</span>
+                            </div>
+                        <% } %>
+                    </div>
+
+                    <div class="form__group">
+                        <div class="form__input">
+                            <label for="password" class="label">
+                                Contraseña
+                            </label>
+                            <input type="password" class="input" name="password">
+                        </div>
+                        <div class="form_group-error">
+                            <span>Lorem ipsum dolor sit amet.</span>
+                        </div>
+                    </div>
+
+                    <div class="form__group">
+                        <label for="remember_me" class="label">
+                            <input type="checkbox" name="rememberme">
+                            Recuerdame
+                        </label>
+                    </div>
+
+                    <div class="form__btns">
+                        <button type="submit" class="btn">Iniciar sesión</button>
+                    </div>
+                    <div class="form__link">
+                        <a href="/users/login">¿Ya tienes cuenta?</a>
+                        <a href="/users/register">¿Olvidaste tu contraseña?</a>
+                    </div>
+
+                </form>
+            </article>
+            <article class="register-cta">
+                <h2>Crear una cuenta</h2>
+                <p>Crea una cuenta con Zen Hogar para hacer seguimiento de tus compras, imprimir copias de tus facturas y mantener tus detalles personales actualizados</p>
+                <a href="/users/register" class="btn">Registrarse</a>
+            </article>
+        </section>
+    </main>
+    <script src="/js/header.js"></script>
+    <script src="/js/login.js"></script>
+</body>
+
+</html>

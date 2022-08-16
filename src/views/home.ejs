@@ -1,9 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-    <%- include('./partials/head.ejs', {title:'Zen Hogar | Welcome'}) %>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <title>Proyecto Integrador - Home</title>
+</head>
+
 <body>
     <%- include('./partials/header.ejs') %>
-    <%- include('./partials/scripts.ejs') %>
+        <main>
+            <div class="container">
+            <section class="welcome-banner welcome-banner-v">
+                <img src="/img/assets/banners/banner-mobile.jpg" alt="">
+                <article class="welcome-banner__text">
+                    <h1>Diseños para vivir</h1>
+                    <p class="welcome-banner__text-subtitle">Creados para durar</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, praesentium tempora ipsum
+                        molestiae vitae perspiciatis corporis quo ducimus recusandae. Dolorum nostrum corrupti iste
+                        voluptas. Recusandae debitis doloribus nam beatae eaque?</p>
+                </article>
+                <a href="#" class="btn banner-btn">Ver más</a>
+            </section>
+
+            <section class="welcome-banner welcome-banner-h">
+                <img src="/img/assets/banners/banner-desktop.jpg" alt="">
+                <article class="welcome-banner__text">
+                    <h1>Diseños para vivir</h1>
+                    <p class="welcome-banner__text-subtitle">Creados para durar</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, praesentium tempora ipsum
+                        molestiae vitae perspiciatis corporis quo ducimus recusandae. Dolorum nostrum corrupti iste
+                        voluptas. Recusandae debitis doloribus nam beatae eaque?</p>
+                </article>
+                <a href="#" class="main-btn banner-btn">Ver más</a>
+            </section>
+
+            <section class="icons-banner">
+                <article class="icon-banner__box icon-banner__box-1">
+                    <i class='bx bx-package'></i>
+                    <div class="icon-banner__text">
+                        <h2>Envio Gratis</h2>
+                        <p>A todo el país</p>
+                    </div>
+                </article>
+                <article class="icon-banner__box icon-banner__box-2">
+                    <i class='bx bx-trophy'></i>
+                    <div class="icon-banner__text">
+                        <h2>Alta Calidad</h2>
+                        <p>La mejor materia prima</p>
+                    </div>
+                </article>
+                <article class="icon-banner__box icon-banner__box-3">
+                    <i class='bx bx-calendar-check'></i>
+                    <div class="icon-banner__text">
+                        <h2>Garantía</h2>
+                        <p>Hasta 2 años</p>
+                    </div>
+                </article>
+                <article class="icon-banner__box icon-banner__box-4">
+                    <i class='bx bx-support'></i>
+                    <div class="icon-banner__text">
+                        <h2>Soporte en vivo</h2>
+                        <p>Atención personalizada</p>
+                    </div>
+                </article>
+            </section>
+            <section class="products">
+                <div class="products__title">
+                    <h2>Productos destacados</h2>
+                    <p>Encuentra una amplia gama de productos para tu hogar y negocio. Con nuestros productos
+                        transformar tu
+                        hogar se volvio más sencillo.</p>
+                </div>
+                <div class="products__show-container">
+                    <% products.forEach(product=> { %>
+                        <article class="product-card">
+                            <div class="product-card__header">
+                                <a href="/products/detail/<%= product.id %> ">
+                                    <img src="/img/uploads/products/<%= product.productImg %> "
+                                        alt="<%= product.name %> ">
+                                </a>
+                            </div>
+                            <div class="product-card__body">
+                                <div class="product-card__body-info">
+                                    <span>
+                                        <%= product.name %>
+                                    </span>
+                                    <p class="product-card__body-price">
+                                        $ <%= product.price %>
+                                    </p>
+                                </div>
+                                <div class="product-card__body-btns">
+                                    <a href="/products/detail/<%= product.id %> " class="card-btn card-btn__detail"><i
+                                            class='bx bx-show-alt'></i></a>
+                                    <form action="/users/cart/add" method="POST">
+                                        <input type="text" name="productId" value="<%= product.id%>" class="product-card-input">
+                                        <button type="submit" class="card-btn card-btn__add-to-cart"><i
+                                            class='bx bx-cart-add'></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                        </article>
+                        <% }) %>
+                </div>
+            </section>
+        </div>
+        </main>
+        <script src="/js/header.js"></script>
 </body>
 
 </html>

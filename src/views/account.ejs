@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <title>Proyecto Integrador - Register</title>
+</head>
+
+<body>
+    <%- include('./partials/header.ejs') %>
+        <main>
+            <div class="profile">
+                <div class="container">
+                    <div class="profile-header">
+                        <h1>Detalle de usuario</h1>
+                        <p>Asegurate de mantener siempre actualizados tus datos para poder asegurarnos de que cada orden
+                            se realize correctamente</p>
+                    </div>
+                    <div class="profile__container">
+                        <div class="profile__header">
+                            <img src="/img/uploads/users/<%=locals.userLogged.profileImg%>"
+                                alt="Foto de <%= locals.userLogged.name %> ">
+                        </div>
+                        <div class="profile__body">
+                            <ul>
+                                <li>Nombre: <span class="user-data">
+                                        <%= locals.userLogged.name %>
+                                    </span> </li>
+                                <li>Apellido: <span class="user-data">
+                                        <%= locals.userLogged.lastname %>
+                                    </span></li>
+                                <li>Email: <span class="user-data">
+                                        <%= locals.userLogged.email %>
+                                    </span></li>
+                                <li>Celular: <span class="user-data">
+                                        <%= locals.userLogged.phone %>
+                                    </span></li>
+                                <li>Pais: <span class="user-data">
+                                        <%= locals.userLogged.country %>
+                                    </span></li>
+                                <li>Provincia / Estado: <span class="user-data">
+                                        <%= locals.userLogged.state %>
+                                    </span></li>
+                                <li>Localidad: <span class="user-data">
+                                        <%= locals.userLogged.city %>
+                                    </span></li>
+                                <li>Código Postal <span class="user-data">
+                                        <%= locals.userLogged.zipcode %>
+                                    </span></li>
+                                <li>Domicilio: <span class="user-data">
+                                        <%= locals.userLogged.address %>
+                                    </span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="user-options">
+                        <div class="user-options__header">
+                            <h2>Opciones de cuenta</h2>
+
+                        </div>
+                        <ul>
+                            <li><a href="/users/profile/edit" class="user-opt-btn">Editar información</a></li>
+                            <li><a href="/users/profile/security" class="user-opt-btn">Cambiar contraseña</a></li>
+                            <li><a href="#" class="user-opt-btn">Ver mis compras</a></li>
+                            <li><a href="#" class="user-opt-btn">Ver mis favoritos</a></li>
+                            <li><a href="#" class="user-opt-btn">Ayuda</a></li>
+                            <li><a href="/users/logout" class="user-opt-btn logout-btn">Cerrar sesión</a></li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <script src="/js/header.js"></script>
+</body>
+
+</html>

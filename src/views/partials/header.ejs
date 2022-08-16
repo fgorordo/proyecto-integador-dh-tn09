@@ -1,64 +1,76 @@
 <header>
-    <div class="header-container">
-        <div class="header-menu">
-            <button class="header-menu__btn" id="menuBtn"><i class="material-symbols-outlined">menu</i></button>
-            <button class="header-menu__btn" id="userBtn"><i class="material-symbols-outlined">account_circle</i></button>
-            <button class="header-menu__btn" id="searchBtn"><i class="material-symbols-outlined">search</i></button>
-        </div>
-        <div class="header-logo">
+    <nav class="mobile-header">
+        <div class="mobile-header__logo-container">
             <a href="/">
-                <img src="/img/assets/logo/logo_zen_hogar-black.svg" alt="">
+                <img class="mobile-header__logo" src="/img/assets/logo/logo_zen_hogar-black.svg" alt="Site logo">
             </a>
         </div>
-    </div>
-    <div class="header-slide-menu" id="menuSlider">
-        <h2 class="slide-menu__title">Menu</h2>
-        <div class="header-slide-menu__container">
-            <ul class="slide-header-menu">
-                <li class="slide-header-menu__item"><button class="slide-header-menu__link"><i
-                            class="material-symbols-outlined">chair</i>Muebles</button></li>
-                <li class="slide-header-menu__item"><button class="slide-header-menu__link"><i
-                            class="material-symbols-outlined">light_group</i> Iluminación</button></li>
-                <li class="slide-header-menu__item"><button class="slide-header-menu__link"><i
-                            class="material-symbols-outlined">yard</i> Accesorios</button></li>
-                            <li class="slide-header-menu__item"><a href="/products" class="slide-header-menu__link"><i
-                                class="material-symbols-outlined">scene</i> Todos los productos</a></li>
-                <li class="slide-header-menu__item"><button class="slide-header-menu__link"><i
-                            class="material-symbols-outlined">shopping_bag</i> Carrito</button></li>
-                <li class="slide-header-menu__item"><button class="slide-header-menu__link"><i
-                            class="material-symbols-outlined">help</i> Ayuda</button></li>
+        <div class="mobile-header__items">
+            <a href="/products/search?filter=all&page=0"><i class='bx bx-search'></i></a>
+            <% if(locals.userLogged){%>
+                <% if (locals.userLogged.accountCart !== undefined) { %>
+                    <a href="/users/cart" class="cart-shortcut"><i class='bx bx-cart'>
+                        </i><span class="items-in-cart">
+                            <%= userLogged.accountCart.length%>
+                        </span>
+                    </a>
+                    <% } else { %>
+                        <a href="/users/cart" class="cart-shortcut"><i class='bx bx-cart'>
+                            </i><span class="items-in-cart">
+                                0
+                            </span>
+                        </a>
+                        <% } %>
+                            <% } else {%>
+                                <a href="/users/cart" class="cart-shortcut"><i class='bx bx-cart'>
+                                    </i><span class="items-in-cart">0</span>
+                                </a>
+                                <%}%>
+                                    <a href="/users/profile"><i class='bx bx-user-circle'></i></a>
+                                    <span id="menu-btn"><i class='bx bx-menu-alt-right'></i></span>
+        </div>
+        <div class="dropdown-menu" id="menu-dropdown">
+            <div class="dropdown-menu__title">
+                <h2>Menu</h2>
+                <hr>
+            </div>
+            <ul class="dropdown-menu__list">
+                <li class="dropdown-menu__items"><a href="/products/search?filter=muebles&page=0">Muebles</a></li>
+                <li class="dropdown-menu__items"><a href="/products/search?filter=iluminacion&page=0">Iluminación</a>
+                </li>
+                <li class="dropdown-menu__items"><a href="/products/search?filter=accesorios&page=0">Accesorios</a></li>
+                <li class="dropdown-menu__items"><a href="/products/search?filter=all&page=0">Todos los productos</a>
+                </li>
+                <li class="dropdown-menu__items"><a href="/products/search?filter=ofertas&page=0">Ofertas</a></li>
             </ul>
-        </div>
-        <p class="header-copyright">&copy; Todos los derechos reservados.</p>
-    </div>
-    <% if (locals.isLogged) { %>
-        <div class="header-slide-menu account-slide account__container" id="accountSlider">
-        </div>
-    <% } else { %>
-        <div class="header-slide-menu account-slide account__container" id="accountSlider">
-            <div class="header-slide-menu__container">
-                <h2 class="slide-menu__title">Mi cuenta</h2>
-                <p class="slide-menu__text">Debes iniciar sesion para continuar a tu perfil</p>
-                <a href="/users/login" class="slide-header-menu__link"><i class="material-symbols-outlined">login</i>
-                    Iniciar sesión</a>
+            <div class="dropdown-user">
+                <% if (locals.userLogged) { %>
+                    <div class="dropdown-user__img">
+                        <img src="/img/uploads/users/<%= locals.userLogged.profileImg %> "
+                            alt="<%= locals.userLogged.name + ' '+ locals.userLogged.lastname  %> ">
+                    </div>
+                    <div class="dropdown-user__info">
+                        <p>
+                            <%= locals.userLogged.name %>
+                        </p>
+                        <a href="/users/logout" style="color:var(--color-red)">Cerrar sesión</a>
+                    </div>
+                    <% if (locals.userLogged.rolId===4) { %>
+                        <div class="admin-menu">
+                            <a href="/admin" class="admin-btn"><i class='bx bx-crown'></i><span>ADMIN ZONE</span></a>
+                        </div>
+                        <%}%>
+
+                            <% }else { %>
+                                <div class="dropdown-user__img">
+                                    <img src="/img/assets/users/default.png" alt="Guest user">
+                                </div>
+                                <div class="dropdown-user__info">
+                                    <p>Invitado</p>
+                                    <a href="/users/login">Iniciar sesión</a>
+                                </div>
+                                <%} %>
             </div>
-            <div class="header-slide-menu__container">
-                <h2 class="slide-menu__title">Registrarse</h2>
-                <p class="slide-menu__text">¿Aún no tienes cuenta? ¿Qué estas esperando?</p>
-                <a href="/users/register" class="slide-header-menu__link"><i class="material-symbols-outlined">login</i>
-                    Registrarse</a>
-            </div>
-            <div class="header-slide-menu__container">
-                <h2 class="slide-menu__title">Necesitas ayuda?</h2>
-                <button class="slide-header-menu__link"><i class="material-symbols-outlined">help</i> Ayuda</button>
-            </div>
         </div>
-    <% } %>
-    <div class="header-search-bar" id="searchBox">
-        <form action="#" class="header-search-bar__form">
-            <input type="search" class="header-search-bar__input" placeholder="Busquemos algo...">
-            <button type="submit" class="header-search-bar__btn"><i
-                    class="material-symbols-outlined">search</i></button>
-        </form>
-    </div>
+    </nav>
 </header>

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <title>Proyecto Integrador - Home</title>
+</head>
+
+<body>
+    <%- include('./partials/header.ejs') %>
+        <main>
+            <div class="container create-product">
+                <div class="sections__title create-product-title">
+                    <h1>Crear un producto</h1>
+                    <p>Completa el formulario para agregar un producto a la lista</p>
+                </div>
+                <div class="create-product-menu">
+                    <form action="/admin/products/create" method="POST" class="create-product-form"
+                        enctype="multipart/form-data">
+
+                        <div class="form__group product-img-container">
+                            <div class="form__input img-input">
+                                <div class="form__input--product__img">
+                                    <img src="/img/assets/products/default.png"
+                                        alt="Selecciona una foto para el producto">
+                                </div>
+                            </div>
+                            <label for="productImg" class="btn hot-fix"><i class='bx bx-camera'></i></label>
+                            <div class="form_group-error hot-fix">
+                                <span>Lorem ipsum dolor sit amet.</span>
+                            </div>
+                        </div>
+
+                        <input type="file" name="productImg" id="productImg">
+                        <div class="product-create__info">
+
+
+                            <div class="form__group">
+                                <% if (locals.errors && locals.errors.name) { %>
+                                    <div class="form__input active">
+                                        <label for="name" class="label active">
+                                            Nombre del producto
+                                        </label>
+                                        <input type="text" class="input active" name="name"
+                                            value="<%= locals.errors.name.value %>">
+                                    </div>
+                                    <div class="form_group-error active">
+                                        <span class="active">
+                                            <%= locals.errors.name.msg %>
+                                        </span>
+                                    </div>
+
+                                <% } else if(locals.oldData && locals.oldData.name) { %>
+                                    <div class="form__input">
+                                        <label for="name" class="label">
+                                            Nombre del producto
+                                        </label>
+                                        <input type="text" class="input" name="name"
+                                                value="<%= locals.oldData.name %>">
+                                    </div>
+                                    <div class="form_group-error">
+                                        <span>Lorem ipsum dolor sit amet.</span>
+                                    </div>
+
+                                <% } else {%>
+                                    <div class="form__input">
+                                        <label for="name" class="label">
+                                            Nombre del producto
+                                        </label>
+                                        <input type="text" class="input" name="name">
+                                    </div>
+                                    <div class="form_group-error">
+                                        <span>Lorem ipsum dolor sit amet.</span>
+                                    </div>
+                                <% } %>
+                            </div>
+
+                            <div class="form__group">
+                                <% if (locals.errors && locals.errors.price) { %>
+                                    <div class="form__input active">
+                                        <label for="price" class="label active">
+                                            Precio
+                                        </label>
+                                        <input type="text" class="input active" name="price"
+                                            value="<%= locals.errors.price.value %>">
+                                    </div>
+                                    <div class="form_group-error active">
+                                        <span class="active">
+                                            <%= locals.errors.price.msg %>
+                                        </span>
+                                    </div>
+
+                                <% } else if(locals.oldData && locals.oldData.price) { %>
+                                    <div class="form__input">
+                                        <label for="price" class="label">
+                                            Precio
+                                        </label>
+                                        <input type="text" class="input" name="price"
+                                                value="<%= locals.oldData.price %>">
+                                    </div>
+                                    <div class="form_group-error">
+                                        <span>Lorem ipsum dolor sit amet.</span>
+                                    </div>
+
+                                <% } else {%>
+                                    <div class="form__input">
+                                        <label for="price" class="label">
+                                            Precio
+                                        </label>
+                                        <input type="text" class="input" name="price">
+                                    </div>
+                                    <div class="form_group-error">
+                                        <span>Lorem ipsum dolor sit amet.</span>
+                                    </div>
+                                <% } %>
+                            </div>
+
+                            <div class="form__group">
+                                <% if (locals.errors && locals.errors.stock) { %>
+                                    <div class="form__input active">
+                                        <label for="stock" class="label active">
+                                            Stock
+                                        </label>
+                                        <input type="text" class="input active" name="stock"
+                                            value="<%= locals.errors.stock.value %>">
+                                    </div>
+                                    <div class="form_group-error active">
+                                        <span class="active">
+                                            <%= locals.errors.stock.msg %>
+                                        </span>
+                                    </div>
+
+                                <% } else if(locals.oldData && locals.oldData.stock) { %>
+                                    <div class="form__input">
+                                        <label for="stock" class="label">
+                                            Stock
+                                        </label>
+                                        <input type="text" class="input" name="stock"
+                                                value="<%= locals.oldData.stock %>">
+                                    </div>
+                                    <div class="form_group-error">
+                                        <span>Lorem ipsum dolor sit amet.</span>
+                                    </div>
+
+                                <% } else {%>
+                                    <div class="form__input">
+                                        <label for="stock" class="label">
+                                            Stock
+                                        </label>
+                                        <input type="text" class="input" name="stock">
+                                    </div>
+                                    <div class="form_group-error">
+                                        <span>Lorem ipsum dolor sit amet.</span>
+                                    </div>
+                                <% } %>
+                            </div>
+
+                            <div class="form__group">
+                                <% if (locals.errors && locals.errors.category) { %>
+                                    <div class="form__input active">
+                                        <label for="categoryId" class="label active">
+                                            Categoria
+                                        </label>
+                                        <select name="categoryId" id="category" class="input">
+                                            <option value="" disabled selected> Selecciona una categoria</option>
+                                            <% data.forEach(element=> { %>
+                                                <option value="<%= element.id%>">
+                                                    <%= element.name %>
+                                                </option>
+                                                <% }) %>
+                                        </select>
+                                    </div>
+                                    <div class="form_group-error active">
+                                        <span class="active">
+                                            <%= locals.errors.category.msg %>
+                                        </span>
+                                    </div>
+
+                                <% } else if(locals.oldData && locals.oldData.category) { %>
+                                    <div class="form__input">
+                                        <label for="categoryId" class="label">
+                                            Categoria
+                                        </label>
+                                        <select name="categoryId" id="category" class="input">
+                                            <option value="" disabled selected> Selecciona una categoria</option>
+                                            <% data.forEach(element=> { %>
+                                                <% if (element.id == locals.oldData.category) { %>
+                                                    <option value="<%= element.id%>" selected>
+                                                        <%= element.name %>
+                                                    </option>
+                                                <% } else { %>
+                                                <option value="<%= element.id%>">
+                                                    <%= element.name %>
+                                                </option>
+                                                <%}%>
+
+                                            <% }) %>
+                                        </select>
+                                    </div>
+                                    <div class="form_group-error">
+                                        <span>
+                                            <span>Lorem ipsum dolor sit amet.</span>
+                                        </span>
+                                    </div>
+
+                                <% } else {%>
+                                    <div class="form__input">
+                                        <label for="categoryId" class="label">
+                                            Categoria
+                                        </label>
+                                        <select name="categoryId" id="category" class="input">
+                                        <option value="" disabled selected> Selecciona una categoria</option>
+                                        <% data.forEach(element=> { %>
+                                            <option value="<%= element.id%>">
+                                                <%= element.name %>
+                                            </option>
+                                            <% }) %>
+                                    </select>
+                                    </div>
+                                    <div class="form_group-error">
+                                        <span>Lorem ipsum dolor sit amet.</span>
+                                    </div>
+                                <% } %>
+                            </div>
+
+                            <div class="form__group">
+                                <% if (locals.errors && locals.errors.sbCategory) { %>
+                                    <div class="form__input active">
+                                        <label for="sbCategoryId" class="label active">
+                                            Sub categoria
+                                        </label>
+                                        <select name="sbCategoryId" id="sbCategory" class="input">
+                                            <option value="" disabled selected> Selecciona una sub-categoria</option>
+                                            <% data.forEach(element=> { %>
+                                                <option value="" disabled>
+                                                    <%= element.name%>
+                                                </option>
+                                                <% element.subCategories.forEach(element=> { %>
+                                                    <option value="<%=element.id%>">
+                                                        <%= element.name %>
+                                                    </option>
+                                                    <% }) %>
+                                                        <% }) %>
+                                        </select>
+                                    </div>
+                                    <div class="form_group-error active">
+                                        <span class="active">
+                                            <%= locals.errors.sbCategory.msg %>
+                                        </span>
+                                    </div>
+
+                                <% } else if(locals.oldData && locals.oldData.sbCategory) { %>
+                                    <div class="form__input">
+                                        <label for="sbCategoryId" class="label">
+                                            Sub categoria
+                                        </label>
+                                        <select name="sbCategoryId" id="sbCategory" class="input">
+                                            <option value="" disabled selected> Selecciona una sub-categoria</option>
+                                            <% data.forEach(element=> { %>
+                                                <option value="" disabled>
+                                                    <%= element.name%>
+                                                </option>
+                                                <% element.subCategories.forEach(element=> { %>
+                                                    <% if (element.id == locals.oldData.sbCategory) { %>
+                                                        <option value="<%= element.id%>" selected>
+                                                            <%= element.name %>
+                                                        </option>
+                                                    <% } else { %>
+                                                    <option value="<%= element.id%>">
+                                                        <%= element.name %>
+                                                    </option>
+                                                    <%}%>
+                                                    <% }) %>
+                                                        <% }) %>
+                                        </select>
+                                    </div>
+                                    <div class="form_group-error">
+                                        <span>
+                                            <span>Lorem ipsum dolor sit amet.</span>
+                                        </span>
+                                    </div>
+
+                                <% } else {%>
+                                    <div class="form__input">
+                                        <label for="sbCategoryId" class="label">
+                                            Sub categoria
+                                        </label>
+                                        <select name="sbCategoryId" id="sbCategory" class="input">
+                                            <option value="" disabled selected> Selecciona una sub-categoria</option>
+                                            <% data.forEach(element=> { %>
+                                                <option value="" disabled>
+                                                    <%= element.name%>
+                                                </option>
+                                                <% element.subCategories.forEach(element=> { %>
+                                                    <option value="<%=element.id%>">
+                                                        <%= element.name %>
+                                                    </option>
+                                                    <% }) %>
+                                                        <% }) %>
+                                        </select>
+                                    </div>
+                                    <div class="form_group-error">
+                                        <span>Lorem ipsum dolor sit amet.</span>
+                                    </div>
+                                <% } %>
+                            </div>
+
+                            <div class="form__group">
+                                <% if (locals.errors && locals.errors.discount) { %>
+                                    <div class="form__input active">
+                                        <label for="discount" class="label active">
+                                            ¿Aplicar descuento?
+                                        </label>
+                                        <select name="discount" id="discount" class="input active">
+                                                <option value="1"> Si</option>
+                                                <option value="0" selected> No</option>
+                                        </select>
+                                    </div>
+                                    <div class="form_group-error active">
+                                        <span class="active">
+                                            <%= locals.errors.stock.msg %>
+                                        </span>
+                                    </div>
+                                <% } else if(locals.oldData && locals.oldData.discount) { %>
+                                    <div class="form__input">
+                                        <label for="discount" class="label">
+                                            ¿Aplicar descuento?
+                                        </label>
+                                        <select name="discount" id="discount" class="input">
+                                            <% if (locals.oldData.discount == 1) { %>
+                                                <option value="1" selected> Si</option>
+                                                <option value="0"> No</option>
+                                            <% } else { %>
+                                                <option value="1"> Si</option>
+                                                <option value="0" selected> No</option>
+                                            <% } %>
+                                        </select>
+                                    </div>
+                                    <div class="form_group-error">
+                                        <span>Lorem ipsum dolor sit amet.</span>
+                                    </div>
+
+                                <% } else {%>
+                                    <div class="form__input">
+                                        <label for="discount" class="label">
+                                            ¿Aplicar descuento?
+                                        </label>
+                                        <select name="discount" id="discount" class="input">
+                                            <option value="1"> Si</option>
+                                            <option value="0" selected> No</option>
+                                        </select>
+                                    </div>
+                                    <div class="form_group-error">
+                                        <span>Lorem ipsum dolor sit amet.</span>
+                                    </div>
+                                <% } %>
+                            </div>
+
+                            <div class="form__group">
+                                <% if (locals.errors && locals.errors.discountValue) { %>
+                                    <div class="form__input active">
+                                        <label for="discountValue" class="label active">
+                                            % Descuento
+                                        </label>
+                                        <input type="number" class="input active" name="discountValue" value="0" min="0" max="99">
+                                    </div>
+                                    <div class="form_group-error active">
+                                        <span class="active">
+                                            <%= locals.errors.discountValue.msg %>
+                                        </span>
+                                    </div>
+
+                                <% } else if(locals.oldData && locals.oldData.discountValue) { %>
+                                    <div class="form__input ">
+                                        <label for="discountValue" class="label ">
+                                            % Descuento
+                                        </label>
+                                        <input type="number" class="input " name="discountValue" value="<%= locals.oldData.discountValue %>" min="0" max="99">
+                                    </div>
+                                    <div class="form_group-error ">
+                                        <span>
+                                            <span>Lorem ipsum dolor sit amet.</span>
+                                        </span>
+                                    </div>
+
+                                <% } else {%>
+                                    <div class="form__input ">
+                                        <label for="discountValue" class="label ">
+                                            % Descuento
+                                        </label>
+                                        <input type="number" class="input " name="discountValue" value="0" min="0" max="99">
+                                    </div>
+                                    <div class="form_group-error ">
+                                        <span>
+                                            <span>Lorem ipsum dolor sit amet.</span>
+                                        </span>
+                                    </div>
+                                <% } %>
+                            </div>
+
+                        </div>
+
+                        <div class="form__group" style="width:100%; order:3;padding:16px;padding-top:0;">
+                            <% if (locals.errors && locals.errors.description) { %>
+                                <div class="form__input active">
+                                    <label for="description" class="label active">
+                                        Descripción
+                                    </label>
+                                    <textarea name="description" class="input active"
+                                        style="resize:none; height:300px; width: 100%;"></textarea>
+                                </div>
+                                <div class="form_group-error active">
+                                    <span class="active"><%= locals.errors.description.msg %> </span>
+                                </div>
+
+                            <% } else if(locals.oldData && locals.oldData.description) { %>
+                                <div class="form__input">
+                                    <label for="description" class="label">
+                                        Descripción
+                                    </label>
+                                    <textarea name="description" class="input"
+                                        style="resize:none; height:300px; width: 100%;" value="<%=  locals.oldData.description%>"></textarea>
+                                </div>
+                                <div class="form_group-error">
+                                    <span>Lorem ipsum dolor sit amet.</span>
+                                </div>
+
+                            <% } else {%>
+                                <div class="form__input">
+                                    <label for="description" class="label">
+                                        Descripción
+                                    </label>
+                                    <textarea name="description" class="input"
+                                        style="resize:none; height:300px; width: 100%;"></textarea>
+                                </div>
+                                <div class="form_group-error">
+                                    <span>Lorem ipsum dolor sit amet.</span>
+                                </div>
+                            <% } %>
+                        </div>
+
+                        <div class="form__btns hot-fix">
+                            <button type="submit" class="btn">Crear producto</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </main>
+        <script src="/js/header.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <title>Proyecto Integrador - Admin </title>
+</head>
+
+<body>
+    <%- include('./partials/header.ejs') %>
+        <main>
+            <div class="container admin-zone">
+                <div class="admin-zone__title">
+                    <h1>Dashboard de administrador</h1>
+                    <p>Desde aqui podras realizar todas las opciones de gestión, como gestionar usuarios y productos.</p>
+                </div>
+
+                <div class="admin-zone__sidenav">
+                    <div class="admin-sidenav__header">
+                        <img src="/img/assets/logo/logo_zen_hogar-black.svg" alt="Site logo">
+                        <!-- Probablemente poner barra de busquedas y helpers -->
+                    </div>
+                    <div class="admin-sidenav__body">
+                        <ul>
+                            <li><a href="#"><i class='bx bx-package'></i> Productos</a>
+                                <div class="admin-product__menu admin-all-menu">
+                                    <ul class="admin-dropdown__menu admin-menus">
+                                        <li><a href="/admin/products/create">Crear producto</a></li>
+                                        <li><a href="/admin/products/list">Listar productos</a></li>
+                                    </ul>
+                                </div></li>
+                            <li><a href="#"><i class='bx bx-user-circle' ></i> Usuarios</a>
+                                <div class="admin-product__menu admin-all-menu">
+                                    <ul class="admin-dropdown__menu admin-menus">
+                                        <li><a href="#">Listar usuarios</a></li>
+                                    </ul>
+                                </div></li>
+                            <li><a href="#"><i class='bx bx-category' ></i> Categorias & Sub-categorias</a>
+                                <div class="admin-product__menu admin-all-menu">
+                                    <ul class="admin-dropdown__menu admin-menus">
+                                        <li><a href="#">Listar categorias</a></li>
+                                        <li><a href="#">Listar sub-categorias</a></li>
+                                        <li><a href="#">Agregar categorias</a></li>
+                                        <li><a href="#">Agregar sub-categorias</a></li>
+                                    </ul>
+                                </div></li></li>
+                            <li><a href="#"><i class='bx bx-store' ></i> Ventas</a></li>
+                            <li><a href="#"><i class='bx bx-envelope' ></i> Mensajeria Interna</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="admin-home-resume">
+                    <h1>Aca ponemos un resumen tipo dashboard</h1>
+                    <span style="font-size:40px">Work in progress</span>
+                    <i class='bx bx-hard-hat' ></i>
+                </div>
+            </div>
+        </main>
+        <script src="/js/header.js"></script>
+</body>
+
+</html>

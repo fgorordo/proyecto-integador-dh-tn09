@@ -1,22 +1,29 @@
-const db = require("../database/models");
+const db = require('../database/models/index');
 
-const MainController = {
-    home: (req, res) => {
-        db.Product.findAll({ limit: 5 })
-        .then(data => {
-            let cleanData = [];
-            data.forEach(element => {
-                cleanData.push(element.toJSON())
+const indexController = {
+    index: async (req, res) => {
+        try {
+            let getRandomElementIndex = (array) => {
+                let random = Math.random() * array.length;
+                return Math.floor(random)
+            }
+            let response = await db.Product.findAll()
+            let data = response.map(data => {
+                return data.toJSON()
             })
+            
+            let sortData = [];
 
-            return res.render('home', { data: cleanData })
-        })
-        .catch(error => {
+            for(let i = 0; i < 12; i++) {
+                sortData.push(data[getRandomElementIndex(data)])
+            }
+
+            return res.render('./home.ejs', {products: sortData})
+        } catch (error) {
             console.log(error)
-        })
-    }
+        }
+        
+    },
 }
 
-
-
-module.exports = MainController;
+module.exports = indexController;
