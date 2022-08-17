@@ -2,10 +2,10 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const path = require('path');
-const adminController = require('../controllers/adminController.js');
-const guestMiddleware = require('../middlewares/guestMiddleware.js');
-const isAdmin = require('../middlewares/isAdmin.js');
-const createProductValidations = require('../middlewares/createProductValidations.js');
+const adminController = require('../controllers/adminController');
+const guestMiddleware = require('../middlewares/guestMiddleware');
+const isAdmin = require('../middlewares/isAdmin');
+const createProductValidations = require('../middlewares/createProductValidations');
 
 
 /* Multer Settings */
