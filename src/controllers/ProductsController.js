@@ -2,7 +2,7 @@ const db = require('../database/models/index');
 const { Op } = require("sequelize");
 
 const productsController = {
-    index: (req, res) => {
+    main: (req, res) => {
         return res.send('Hello world')
     },
     detail: async (req, res) => {

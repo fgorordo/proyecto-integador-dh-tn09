@@ -1,7 +1,7 @@
 const db = require('../database/models/index');
 
 const indexController = {
-    index: async (req, res) => {
+    main: async (req, res) => {
         try {
             let getRandomElementIndex = (array) => {
                 let random = Math.random() * array.length;
