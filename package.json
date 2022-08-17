@@ -5,9 +5,8 @@
   "main": "./src/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon ./src/app.js",
-    "prestart": "next build",
-    "start": "next start -p ${PORT}"
+    "start": "node ./src/app.js",
+    "dev": "nodemon ./src/app.js"
   },
   "keywords": [],
   "author": "Javier Valencia, Mariano Iodice, Fernando Gorordo",
