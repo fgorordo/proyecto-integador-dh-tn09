@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const indexController = require('../controllers/indexController');
-const usersRouter = require('./users.routes');
-const productsRouter = require('./products.routes');
-const adminRouter = require('./admin.routes');
+const indexController = require('../controllers/indexController.js');
+const usersRouter = require('./users.routes.js');
+const productsRouter = require('./products.routes.js');
+const adminRouter = require('./admin.routes.js');
 
 //localhost:3030/
 router.get('/', indexController.index);

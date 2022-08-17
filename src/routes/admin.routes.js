@@ -4,8 +4,8 @@ const multer = require('multer');
 const path = require('path');
 const adminController = require('../controllers/adminController.js');
 const guestMiddleware = require('../middlewares/guestMiddleware.js');
-const isAdmin = require('../middlewares/isAdmin');
-const createProductValidations = require('../middlewares/createProductValidations');
+const isAdmin = require('../middlewares/isAdmin.js');
+const createProductValidations = require('../middlewares/createProductValidations.js');
 
 
 /* Multer Settings */

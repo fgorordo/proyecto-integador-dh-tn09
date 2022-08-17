@@ -2,14 +2,14 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 const path = require('path');
-const usersController = require('../controllers/usersController');
-const registerValidations = require('../middlewares/registerFormValidations')
-const loginValidations = require('../middlewares/loginValidations')
-const loginUser = require('../middlewares/loginUser')
-const notGuestMiddleware = require('../middlewares/notGuestMiddleware')
-const guestMiddleware = require('../middlewares/guestMiddleware')
-const editInfoValidations = require('../middlewares/editInfoValidations')
-const validateUserPassword = require('../middlewares/validateUserPassword')
+const usersController = require('../controllers/usersController.js');
+const registerValidations = require('../middlewares/registerFormValidations.js')
+const loginValidations = require('../middlewares/loginValidations.js')
+const loginUser = require('../middlewares/loginUser.js')
+const notGuestMiddleware = require('../middlewares/notGuestMiddleware.js')
+const guestMiddleware = require('../middlewares/guestMiddleware.js')
+const editInfoValidations = require('../middlewares/editInfoValidations.js')
+const validateUserPassword = require('../middlewares/validateUserPassword.js')
 
 /* Multer Settings */
 const storage = multer.diskStorage({
