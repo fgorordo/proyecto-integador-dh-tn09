@@ -21,6 +21,21 @@ module.exports = (sequelize, dataTypes) => {
     profileImg: {
       type: dataTypes.STRING(100),
       defaultValue: 'default.png'
+    },
+    country: {
+      type: dataTypes.STRING(100)
+    },
+    state: {
+      type: dataTypes.STRING(100)
+    },
+    city: {
+      type: dataTypes.STRING(100)
+    },
+    zipcode: {
+      type: dataTypes.STRING(100)
+    },
+    address: {
+      type: dataTypes.STRING(100)
     }
   },
   {

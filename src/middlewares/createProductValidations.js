@@ -5,11 +5,11 @@ const validations = [
     body('name')
         .trim()
         .notEmpty().bail().withMessage('Este campo no puede estar vacío')
-        .isAlphanumeric('es-ES', { ignore: ' ' }).bail().withMessage('No se permiten simbolos o caracteres especiales'),
+        .isLength({min:5}).bail().withMessage('El nombre debe tener como minimo 5 caracteres'),
     body('price')
         .trim()
         .notEmpty().bail().withMessage('Este campo no puede estar vacío')
-        .isInt({min:1}).bail().withMessage('Solo se permiten números positivos en este campo'),
+        .isFloat({min:1}).bail().withMessage('Solo se permiten números positivos en este campo'),
     body('stock')
         .trim()
         .notEmpty().bail().withMessage('Este campo no puede estar vacío')

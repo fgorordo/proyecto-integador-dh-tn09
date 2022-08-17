@@ -23,7 +23,8 @@
                         <p>$<%=product.price%></p>
                         <span><%=product.Category.name%>   >>  <%= product.sbCategory.name %> </span>
                     </div>
-                    <form action="#" method="POST" class="add-to-cart__form">
+                    <form action="/users/cart/add?id=<%= product.id %> " method="POST" class="add-to-cart__form">
+                        <input type="text" name="productId" value="<%=product.id%>" style="display:none;">
                         <div class="form__group">
                             <label for="items" class="label add-to-cart__items">Cantidad</label>
                             <div class="form__input">
@@ -50,7 +51,7 @@
                     <div class="comment-card">
                         <div class="comment-card__img">
                             <img src="https://picsum.photos/200" alt="">
-                            <h3>Johana Doe</h3>
+                            <h3>John Doe</h3>
                         </div>
                         <div class="comment-card__text">
                             
@@ -61,7 +62,7 @@
                     <div class="comment-card">
                         <div class="comment-card__img">
                             <img src="https://picsum.photos/200" alt="">
-                            <h3>Johana Doe</h3>
+                            <h3>John Doe</h3>
                         </div>
                         <div class="comment-card__text">
                             
@@ -72,7 +73,7 @@
                     <div class="comment-card">
                         <div class="comment-card__img">
                             <img src="https://picsum.photos/200" alt="">
-                            <h3>Johana Doe</h3>
+                            <h3>John Doe</h3>
                         </div>
                         <div class="comment-card__text">
                             

@@ -119,10 +119,10 @@ registerForm.addEventListener('submit', (event) => {
         } else if (input.name === 'repassword') {
             validateRePassword(input, input.value, password.value, 'Ambas contraseñas deben ser identicas');
         } else if (input.name === 'profileImg') {
-            if(input.files[0] !== undefined) {
-                validateImg(input, input.files[0].name, /^[A-zÁ-ÿ0-9-_]+\.+(?:png|jpg|jpeg|gif)$/, 'Solo se aceptan archivos de imagen en formato .jpg, .jpeg, .png o .gif')
+            if (input.files[0] !== undefined) {
+                validateImg(input, input.files[0].name, /^*\.(png|jpg|gif|bmp|jpeg)$/, 'Solo se aceptan archivos de imagen en formato .jpg, .jpeg, .png o .gif');
             } else {
-                validateImg(input, '', /^[A-zÁ-ÿ0-9-_]+\.+(?:png|jpg|jpeg|gif)$/, 'Solo se aceptan archivos de imagen en formato .jpg, .jpeg, .png o .gif')
+                validateImg(input, '', /^*\.(png|jpg|gif|bmp|jpeg)$/, 'Solo se aceptan archivos de imagen en formato .jpg, .jpeg, .png o .gif')
             }
         }
     })

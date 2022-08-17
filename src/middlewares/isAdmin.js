@@ -1,5 +1,5 @@
 const isAdmin = (req, res, next) => {
-    if(req.session.userLogged.rolId !== 4) {
+    if(req.session.userLogged.rolId !== 3) {
         return res.redirect('/');
     } else {
         next();

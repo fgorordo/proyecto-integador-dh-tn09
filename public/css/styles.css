@@ -154,6 +154,11 @@ header h1 {
     gap: 32px;
 }
 
+.admin-products-pages {
+    margin: 16px;
+    margin-left: auto;
+}
+
 .dropdown-user__img {
     width: 50px;
     height: 50px;
@@ -699,6 +704,7 @@ input[type="file"] {
 
 .product-description__container {
     margin-top: 32px;
+    word-wrap: break-word;
 }
 
 .upload-picture {
@@ -1412,6 +1418,104 @@ input.active {
 }
 
 
+.show-admin-products {
+    display: flex;
+    flex-flow: row wrap;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.product-sm {
+    width: 100%;
+    display: flex;
+    margin: 16px;
+    background-color: var(--color-pearl);
+    align-items: center;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.product-sm__img {
+    width: 40%;
+}
+
+.product-sm__img a{
+    display: block;
+}
+
+.product-sm__img img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    min-height: 140px;
+}
+
+.product-sm__body {
+    width: 50%;
+    padding: 8px;
+}
+
+.product-sm__body a {
+    color: var(--color-light-black);
+}
+
+.product-sm__body h2 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.product-sm__links {
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-right: 8px;
+}
+.edit-a-product {
+    color: green;
+}
+
+.delete-a-product {
+    color: red;
+    font-size: 24px;
+}
+
+.delete-product-btn {
+    border: none;
+    background-color: unset;
+    cursor: pointer;
+}
+
+.user-sm_img {
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin:0 16px
+
+}
+.user-sm_img img {
+    width: 50px;
+    height: 50px;
+    display: block;
+    min-height: unset;
+    border-radius: 50%;
+    object-fit: cover;
+    
+}
+
+.user-sm_body {
+    width: 60%;
+}
+
 /* TEMPORALLLLLLL */
 
 .admin-home-resume {
@@ -1442,6 +1546,10 @@ input.active {
 }
 
 @media (min-width: 768px) {
+
+    .product-sm {
+        width: calc(100% / 2 - 32px);
+    }
     .profile__body ul li {
         width: calc(100% / 2 - 24px);
     }
@@ -1523,6 +1631,23 @@ input.active {
 }
 
 @media (min-width: 992px) {
+    .banner-btn {
+        background-color: var(--color-green);
+        color: var(--color-white);
+        text-align: center;
+        padding: 16px 0;
+        font-size: 24px;
+        max-width: 180px;
+        margin-right: auto;
+        margin-left: auto;
+        left: 48%;
+        border-radius: 3px;
+        text-decoration: none;
+    }
+    .product-sm {
+        width: calc(100% / 2 - 32px);
+    }
+
     .admin-sidenav__body ul li:hover .admin-all-menu {
         position: absolute;
     }
@@ -1746,6 +1871,9 @@ input.active {
 }
 
 @media (min-width: 1200px) {
+    .user-sm {
+        width: calc(100% / 3 - 32px);
+    }
 
     .container {
         min-width: 1200px;

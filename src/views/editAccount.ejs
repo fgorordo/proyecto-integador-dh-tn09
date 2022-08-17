@@ -22,8 +22,8 @@
                     <div class="form__group">
                         <div class="form__input img-input">
                             <div class="form__input--img">
-                                <img src="/img/uploads/users/<%= locals.userLogged.profileImg %> " alt="Default user photo">
-                                <label for="uploadPic" class="upload-picture"><i class='bx bx-camera' ></i></label>
+                                <img src="/img/uploads/users/<%= locals.userLogged.profileImg %> " alt="Default user photo" id="changePicImg">
+                                <label for="changePic" class="upload-picture"><i class='bx bx-camera' ></i></label>
                             </div>
                         </div>
                         <div class="form_group-error" id="imgErrors">
@@ -31,7 +31,7 @@
                         </div>
                     </div>
 
-                    <input type="file" name="profileImg" id="uploadPic" accept="image/*">
+                    <input type="file" name="profileImg" id="changePic" accept="image/*">
 
                     <div class="form__group">
                         <% if (locals.errors && locals.errors.name) { %>
@@ -171,6 +171,34 @@
                         <% } %>
                     </div>
 
+                    <% if (locals && locals.roles) { %>
+                        <div class="form__input">
+                            <label for="categoryId" class="label">
+                                Rol de usuario
+                            </label>
+                            <select name="categoryId" id="category" class="input">
+                                <option value="" disabled selected> Selecciona un rol</option>
+                                <% roles.forEach(element=> { %>
+                                    <% if (element.id == locals.oldData.rolId) { %>
+                                        <option value="<%= element.id%>" selected>
+                                            <%= element.name %>
+                                        </option>
+                                    <% } else { %>
+                                    <option value="<%= element.id%>">
+                                        <%= element.name %>
+                                    </option>
+                                    <%}%>
+    
+                                <% }) %>
+                            </select>
+                        </div>
+                        <div class="form_group-error">
+                            <span>
+                                <span>Lorem ipsum dolor sit amet.</span>
+                            </span>
+                        </div>
+                    <% } %>
+
                     <div class="form__group">
                         <% if (locals.errors && locals.errors.country) { %>
                             <div class="form__input active">
@@ -243,7 +271,7 @@
                         <% if (locals.errors && locals.errors.city) { %>
                             <div class="form__input active">
                                 <label for="city" class="label active">
-                                    Ciudad
+                                    Localidad
                                 </label>
                                 <input type="text" class="input active" name="city" value="<%= locals.errors.city.value %> ">
                             </div>
@@ -253,7 +281,7 @@
                         <% } else if(locals.oldData && locals.oldData.city) { %>
                             <div class="form__input">
                                 <label for="city" class="label">
-                                    Ciudad
+                                    Localidad
                                 </label>
                                 <input type="text" class="input" name="city" value="<%= locals.oldData.city %>">
                             </div>
@@ -263,7 +291,7 @@
                         <% } else {%>
                             <div class="form__input">
                                 <label for="city" class="label">
-                                    Ciudad
+                                    Localidad
                                 </label>
                                 <input type="text" class="input" name="city">
                             </div>
@@ -352,6 +380,7 @@
     </main>
     <script src="/js/header.js"></script>
     <script src="/js/register.js"></script>
+    <script src="/js/photoChanger.js"></script>
 </body>
 
 </html>

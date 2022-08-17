@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/styles.css">
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
-    <title>Proyecto Integrador - Home</title>
+    <title>Proyecto Integrador - Product Edit</title>
 </head>
 
 <body>
@@ -15,27 +15,27 @@
         <main>
             <div class="container create-product">
                 <div class="sections__title create-product-title">
-                    <h1>Crear un producto</h1>
-                    <p>Completa el formulario para agregar un producto a la lista</p>
+                    <h1>Editar un producto</h1>
+                    <p>Completa el formulario para modificar el producto de la lista</p>
                 </div>
                 <div class="create-product-menu">
-                    <form action="/admin/products/create" method="POST" class="create-product-form"
+                    <form action="/admin/products/edit/<%= locals.data.id %>?_method=PUT" method="POST" class="create-product-form"
                         enctype="multipart/form-data">
 
                         <div class="form__group product-img-container">
                             <div class="form__input img-input">
                                 <div class="form__input--product__img">
-                                    <img src="/img/assets/products/default.png"
-                                        alt="Selecciona una foto para el producto" id="createProductImg">
+                                    <img src="/img/uploads/products/<%=locals.data.productImg%>"
+                                        alt="Selecciona una foto para el producto" id="editProductImg">
                                 </div>
                             </div>
-                            <label for="createProductImgInput" class="btn hot-fix"><i class='bx bx-camera'></i></label>
+                            <label for="editProductImgInput" class="btn hot-fix"><i class='bx bx-camera'></i></label>
                             <div class="form_group-error hot-fix">
                                 <span>Lorem ipsum dolor sit amet.</span>
                             </div>
                         </div>
 
-                        <input type="file" name="productImg" id="createProductImgInput">
+                        <input type="file" name="productImg" id="editProductImgInput">
                         <div class="product-create__info">
 
 
@@ -71,7 +71,7 @@
                                         <label for="name" class="label">
                                             Nombre del producto
                                         </label>
-                                        <input type="text" class="input" name="name">
+                                        <input type="text" class="input" name="name" value="<%=locals.data.name%>">
                                     </div>
                                     <div class="form_group-error">
                                         <span>Lorem ipsum dolor sit amet.</span>
@@ -111,7 +111,7 @@
                                         <label for="price" class="label">
                                             Precio
                                         </label>
-                                        <input type="text" class="input" name="price">
+                                        <input type="text" class="input" name="price" value="<%=locals.data.price%>">
                                     </div>
                                     <div class="form_group-error">
                                         <span>Lorem ipsum dolor sit amet.</span>
@@ -151,7 +151,7 @@
                                         <label for="stock" class="label">
                                             Stock
                                         </label>
-                                        <input type="text" class="input" name="stock">
+                                        <input type="text" class="input" name="stock" value="<%=locals.data.stock%>">
                                     </div>
                                     <div class="form_group-error">
                                         <span>Lorem ipsum dolor sit amet.</span>
@@ -167,7 +167,7 @@
                                         </label>
                                         <select name="categoryId" id="category" class="input">
                                             <option value="" disabled selected> Selecciona una categoria</option>
-                                            <% data.forEach(element=> { %>
+                                            <% categories.forEach(element=> { %>
                                                 <option value="<%= element.id%>">
                                                     <%= element.name %>
                                                 </option>
@@ -187,7 +187,7 @@
                                         </label>
                                         <select name="categoryId" id="category" class="input">
                                             <option value="" disabled selected> Selecciona una categoria</option>
-                                            <% data.forEach(element=> { %>
+                                            <% categories.forEach(element=> { %>
                                                 <% if (element.id == locals.oldData.category) { %>
                                                     <option value="<%= element.id%>" selected>
                                                         <%= element.name %>
@@ -214,11 +214,18 @@
                                         </label>
                                         <select name="categoryId" id="category" class="input">
                                         <option value="" disabled selected> Selecciona una categoria</option>
-                                        <% data.forEach(element=> { %>
+                                        <% categories.forEach(element=> { %>
+                                            <% if (element.id == locals.data.categoryId) { %>
+                                                <option value="<%= element.id%>" selected>
+                                                    <%= element.name %>
+                                                </option>
+                                            <% } else { %>
                                             <option value="<%= element.id%>">
                                                 <%= element.name %>
                                             </option>
-                                            <% }) %>
+                                            <%}%>
+
+                                        <% }) %>
                                     </select>
                                     </div>
                                     <div class="form_group-error">
@@ -235,16 +242,18 @@
                                         </label>
                                         <select name="sbCategoryId" id="sbCategory" class="input">
                                             <option value="" disabled selected> Selecciona una sub-categoria</option>
-                                            <% data.forEach(element=> { %>
-                                                <option value="" disabled>
-                                                    <%= element.name%>
-                                                </option>
-                                                <% element.subCategories.forEach(element=> { %>
-                                                    <option value="<%=element.id%>">
+                                            <% categories.forEach(element=> { %>
+                                                <% if (element.id == locals.errors.sbCategory.value) { %>
+                                                    <option value="<%= element.id%>" selected>
                                                         <%= element.name %>
                                                     </option>
-                                                    <% }) %>
-                                                        <% }) %>
+                                                <% } else { %>
+                                                <option value="<%= element.id%>">
+                                                    <%= element.name %>
+                                                </option>
+                                                <%}%>
+    
+                                            <% }) %>
                                         </select>
                                     </div>
                                     <div class="form_group-error active">
@@ -260,7 +269,7 @@
                                         </label>
                                         <select name="sbCategoryId" id="sbCategory" class="input">
                                             <option value="" disabled selected> Selecciona una sub-categoria</option>
-                                            <% data.forEach(element=> { %>
+                                            <% categories.forEach(element=> { %>
                                                 <option value="" disabled>
                                                     <%= element.name%>
                                                 </option>
@@ -291,14 +300,20 @@
                                         </label>
                                         <select name="sbCategoryId" id="sbCategory" class="input">
                                             <option value="" disabled selected> Selecciona una sub-categoria</option>
-                                            <% data.forEach(element=> { %>
+                                            <% categories.forEach(element=> { %>
                                                 <option value="" disabled>
                                                     <%= element.name%>
                                                 </option>
                                                 <% element.subCategories.forEach(element=> { %>
-                                                    <option value="<%=element.id%>">
+                                                    <% if (element.id == locals.data.sbCategoryId) { %>
+                                                        <option value="<%= element.id%>" selected>
+                                                            <%= element.name %>
+                                                        </option>
+                                                    <% } else { %>
+                                                    <option value="<%= element.id%>">
                                                         <%= element.name %>
                                                     </option>
+                                                    <%}%>
                                                     <% }) %>
                                                         <% }) %>
                                         </select>
@@ -350,8 +365,13 @@
                                             ¿Aplicar descuento?
                                         </label>
                                         <select name="discount" id="discount" class="input">
-                                            <option value="1"> Si</option>
-                                            <option value="0" selected> No</option>
+                                            <% if (locals.data.discount == 1) { %>
+                                                <option value="1" selected> Si</option>
+                                                <option value="0"> No</option>
+                                            <% } else { %>
+                                                <option value="1"> Si</option>
+                                                <option value="0" selected> No</option>
+                                            <% } %>
                                         </select>
                                     </div>
                                     <div class="form_group-error">
@@ -392,7 +412,7 @@
                                         <label for="discountValue" class="label ">
                                             % Descuento
                                         </label>
-                                        <input type="number" class="input " name="discountValue" value="0" min="0" max="99">
+                                        <input type="number" class="input " name="discountValue" min="0" max="99" value="<%= locals.data.discountValue%>">
                                     </div>
                                     <div class="form_group-error ">
                                         <span>
@@ -423,7 +443,7 @@
                                         Descripción
                                     </label>
                                     <textarea name="description" class="input"
-                                        style="resize:none; height:300px; width: 100%;" value="<%=  locals.oldData.description%>"></textarea>
+                                        style="resize:none; height:300px; width: 100%;"><%=  locals.oldData.description%></textarea>
                                 </div>
                                 <div class="form_group-error">
                                     <span>Lorem ipsum dolor sit amet.</span>
@@ -435,7 +455,7 @@
                                         Descripción
                                     </label>
                                     <textarea name="description" class="input"
-                                        style="resize:none; height:300px; width: 100%;"></textarea>
+                                        style="resize:none; height:300px; width: 100%;" ><%= locals.data.description %></textarea>
                                 </div>
                                 <div class="form_group-error">
                                     <span>Lorem ipsum dolor sit amet.</span>
@@ -444,7 +464,7 @@
                         </div>
 
                         <div class="form__btns hot-fix">
-                            <button type="submit" class="btn">Crear producto</button>
+                            <button type="submit" class="btn">Guardar cambios</button>
                         </div>
 
                     </form>
