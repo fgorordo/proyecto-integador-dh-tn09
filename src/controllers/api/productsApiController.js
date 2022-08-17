@@ -19,7 +19,7 @@ const productsApiController = {
             let productsResponse = productsUrlImgJSON.map(product => {
                 return {
                     ...product,
-                    productImg: product.productImg = `http://localhost:3000/products/image/${product.productImg}`,
+                    productImg: product.productImg = `${product.productImg}`,
                 }
             })
             return res.status(200).json({
@@ -56,7 +56,7 @@ const productsApiController = {
             let product = await db.Product.findOne({ where: { id: req.params.id } })
             let productWhitUrl = {
                 ...product.toJSON(),
-                productImg: product.productImg = `http://localhost:3000/products/image/${product.productImg}`,
+                productImg: product.productImg = `${product.productImg}`,
             }
             return res.status(200).json(productWhitUrl)
         } catch (error) {

@@ -16,7 +16,7 @@ const usersApiController = {
             let userList = data.map(user => (
                 {
                     ...user.toJSON(),
-                    detail: `http://localhost:3000/api/user/${user.id}`
+                    detail: `https://zen-hogar.herokuapp.com/api/user/${user.id}`
                 }
             ));
 
